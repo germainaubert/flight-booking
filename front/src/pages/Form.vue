@@ -1,22 +1,26 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { Flight } from "../../../contract/index.ts";
+import { Flight, Booking} from "../../../contract/index.ts";
 const {flightSelected} = defineProps({
   flightSelected: Flight,
 });
-
-const form = ref({
+const confirmText = ref("");
+const form = ref<Booking>({
   firstname: "",
   lastname: "",
   email: "",
-  flightSelected,
+  flightId: flightSelected?.id as string,
 });
 const submit = () => {
-    createUser(form.value);
-    router.push({ name: "Flight" });
+    try {
+      createBooking(form.value)
+      confirmText.value = "Your booking has been confirmed";
+    } catch (error) {
+        console.log(error);
+    }
 };
 
-const createUser = async (user) => {
+const createBooking = async (user : Booking) => {
     const response = await fetch("http://localhost:3000/users", {
         method: "POST",
         headers: {
@@ -55,5 +59,6 @@ const createUser = async (user) => {
       />
       <button type="submit">Submit</button>
     </form>
+    {{ confirmText  }}
   </div>
 </template>

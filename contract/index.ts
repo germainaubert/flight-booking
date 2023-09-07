@@ -1,5 +1,11 @@
 export class Flight {
-    id: number;
+    id: string;
     depart: string;
     arrival: string;
+}
+export class Booking {
+    firstname: string;
+    lastname: string;
+    email: string;
+    flightId: string;
 }
