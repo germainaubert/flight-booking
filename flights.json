@@ -1,0 +1,32 @@
+[   
+    {
+        "id":"0",
+        "depart": "CDG",
+        "arrival": "JFK"
+    },
+    {
+        "id":"1",
+        "depart": "CDG",
+        "arrival": "DTW"
+    },
+    {
+        "id":"2",
+        "depart": "JFK",
+        "arrival": "DTW"
+    },
+    {
+        "id":"3",
+        "depart": "JFK",
+        "arrival": "CDG"
+    },
+    {
+        "id":"4",
+        "depart": "DTW",
+        "arrival": "CDG"
+    },
+    {
+        "id":"5",
+        "depart": "DTW",
+        "arrival": "JFK"
+    }
+]
