@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { Flight, Booking} from "../../../contract/index.ts";
+import { Flight, Booking} from "../../../contract/index";
 const {flightSelected} = defineProps({
   flightSelected: Flight,
 });
