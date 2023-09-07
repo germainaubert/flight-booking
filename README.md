@@ -1,2 +1,6 @@
-# flight-booking
-School project
+### Schéma d'architecture
+MVC
+
+### Fonctionnalités
+- Afficher liste des vols
+- Réserver
