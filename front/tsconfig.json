@@ -28,7 +28,6 @@
     }
   },
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar/define-models"]
   },
   "exclude": ["dist", "node_modules"]
 }
