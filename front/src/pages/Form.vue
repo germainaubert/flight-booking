@@ -35,7 +35,7 @@ const createBooking = async (user: Booking) => {
 };
 
 const returnToHome = () => {
-    
+
 }
 </script>
 
@@ -66,6 +66,7 @@ const returnToHome = () => {
                 placeholder="email"
                 class="border-2 border-green-200 p-2"
             />
+
             <button type="submit">Submit</button>
         </form>
         {{ confirmText }}
