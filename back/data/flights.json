@@ -1,8 +1,8 @@
 [
-  { "id": "0", "depart": "CDG", "arrival": "JFK" },
-  { "id": "1", "depart": "CDG", "arrival": "DTW" },
-  { "id": "2", "depart": "JFK", "arrival": "DTW" },
-  { "id": "3", "depart": "JFK", "arrival": "CDG" },
-  { "id": "4", "depart": "DTW", "arrival": "CDG" },
-  { "id": "5", "depart": "DTW", "arrival": "JFK" }
+  { "id": "0", "depart": "CDG", "arrival": "JFK", "price": 1000, "depart_date": "" },
+  { "id": "1", "depart": "CDG", "arrival": "DTW", "price": 700, "depart_date": "" },
+  { "id": "2", "depart": "JFK", "arrival": "DTW", "price": 300, "depart_date": "" },
+  { "id": "3", "depart": "JFK", "arrival": "CDG", "price": 1000, "depart_date": "" },
+  { "id": "4", "depart": "DTW", "arrival": "CDG", "price": 700, "depart_date": "" },
+  { "id": "5", "depart": "DTW", "arrival": "JFK", "price": 300, "depart_date": "" }
 ]
