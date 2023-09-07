@@ -32,10 +32,10 @@ watchEffect(async () => {
             Select
           </button>
         </div>
-        <div v-if="flightSelected">
-          <Form :flightSelected="flightSelected" />
-        </div>
       </div>
     </div>
+    <div v-if="flightSelected">
+          <Form :flightSelected="flightSelected" />
+        </div>
   </div>
 </template>
