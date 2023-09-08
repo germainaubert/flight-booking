@@ -1,38 +1,47 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Flight } from '../../../contract/index';
 import { useRouter } from 'vue-router';
+
+const ROUTE = "CDG-DTW-JFK";
+
+onMounted(async () => {
+  flights.value = await getFlights();
+});
 
 const getFlights = async () => {
   const response = await fetch('http://localhost:3000/flights');
   return response.json();
 };
 
-const applyReduction = (flight: Flight, price: number, reduction: number, route: string[]): number => {
-  if (route.length < 3) {
-    return price;
+const applyReduction = (flight: Flight, reduction: number, route: string): number => {
+  if (concatenateArray(flight.route) === route) {
+    return Math.round(flight.price - (flight.price * reduction));
   }
 
-  const routeWithStops = route.join("-");
-  if (flight.route.join("-") !== routeWithStops) {
-    return price;
-  }
+  return flight.price;
+}
 
-  return Math.round(price * ((1 - reduction / 100)));
+const concatenateArray = (array: string[]): string => {
+  return array.join("-");
 }
 
 const router = useRouter();
+const date = ref();
 const flights = ref<Flight[]>([]);
 
 const onClick = (flight: Flight) => {
   router.push({ path: 'booking', query: { ...flight } });
 };
 
-// not onmounted ?
-watchEffect(async () => {
-  flights.value = await getFlights();
-  console.log('flights', flights.value);
-});
+const getFlightsByDate = async () => {
+  if (date.value) {
+    const response = await fetch('http://localhost:3000/flights/date/?date=' + date.value);
+    flights.value = await response.json();
+  } else {
+    flights.value = await getFlights();
+  }
+};
 </script>
 
 <template>
@@ -40,7 +49,9 @@ watchEffect(async () => {
     <header class="text-center flex flex-row justify-evenly">
       <div class="flex-1"></div>
       <div class="flex-1"><h1 class="text-4xl font-bold">Flight booking</h1></div>
-      <div class="flex-1"><input type="date" id="start" name="trip-start" /></div>
+      <div class="flex-1">
+        <input type="date" v-model="date" @change="getFlightsByDate" />
+      </div>
     </header>
     <span>Choisissez un vol</span>
     <div v-if="flights.length === 0">Loading...</div>
@@ -53,7 +64,7 @@ watchEffect(async () => {
             <span> Arrivée : {{ flight?.route?.[flight.route.length - 1] }}</span>
           </div>
           <div class="flex flex-col">
-            <span>Prix du vol: {{ flight.price }}€</span>
+            <span>Prix du vol: {{ applyReduction(flight, 0.1, ROUTE) }}€</span>
           </div>
           <div v-if="flight.remainingSeats">
             <button
