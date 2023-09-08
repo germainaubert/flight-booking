@@ -1,50 +1,51 @@
 [
   {
     "id": "0",
-    "depart": "CDG",
-    "arrival": "JFK",
+    "route": ["CDG", "JFK"],
     "price": 1000,
     "seats": 1000,
     "remainingSeats": 1000
   },
   {
     "id": "1",
-    "depart": "CDG",
-    "arrival": "DTW",
+    "route": ["CDG", "DTW"],
     "price": 700,
     "seats": 700,
     "remainingSeats": 700
   },
   {
     "id": "2",
-    "depart": "JFK",
-    "arrival": "DTW",
+    "route": ["JFK", "DTW"],
     "price": 300,
     "seats": 300,
     "remainingSeats": 300
   },
   {
     "id": "3",
-    "depart": "JFK",
-    "arrival": "CDG",
+    "route": ["JFK", "CDG"],
     "price": 1000,
     "seats": 1000,
     "remainingSeats": 1000
   },
   {
     "id": "4",
-    "depart": "DTW",
-    "arrival": "CDG",
+    "route": ["DTW", "CDG"],
     "price": 700,
     "seats": 700,
     "remainingSeats": 700
   },
   {
     "id": "5",
-    "depart": "DTW",
-    "arrival": "JFK",
+    "route": ["DTW", "JFK"],
     "price": 300,
     "seats": 300,
+    "remainingSeats": 300
+  },
+  {
+    "id": "6",
+    "route": ["CDG", "DTW", "JFK", "MVW"],
+    "price": 400,
+    "seats": 600,
     "remainingSeats": 300
   }
 ]

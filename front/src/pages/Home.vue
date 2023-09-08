@@ -8,6 +8,19 @@ const getFlights = async () => {
   return response.json();
 };
 
+const applyReduction = (flight: Flight, price: number, reduction: number, route: string[]): number => {
+  if (route.length < 3) {
+    return price;
+  }
+
+  const routeWithStops = route.join("-");
+  if (flight.route.join("-") !== routeWithStops) {
+    return price;
+  }
+
+  return Math.round(price * ((1 - reduction / 100)));
+}
+
 const router = useRouter();
 const flights = ref<Flight[]>([]);
 
@@ -18,6 +31,7 @@ const onClick = (flight: Flight) => {
 // not onmounted ?
 watchEffect(async () => {
   flights.value = await getFlights();
+  console.log('flights', flights.value);
 });
 </script>
 
@@ -33,8 +47,9 @@ watchEffect(async () => {
       <div v-for="flight in flights" :key="flight.id">
         <div class="flex flex-row border-2 border-gray-200 p-2 space-x-2 justify-between">
           <div class="flex flex-col">
-            <span> Départ : {{ flight.depart }}</span>
-            <span> Arrivée : {{ flight.arrival }}</span>
+            <span> Départ : {{ flight?.route?.[0] }}</span>
+            <span v-if="flight?.route?.length >= 3"> Escales : {{ flight?.route?.slice(1, -1).join("-") }}</span>
+            <span> Arrivée : {{ flight?.route?.[flight.route.length - 1] }}</span>
           </div>
           <div class="flex flex-col">
             <span>Prix du vol: {{ flight.price }}€</span>

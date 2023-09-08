@@ -1,7 +1,6 @@
 export class Flight {
     id: string;
-    depart: string;
-    arrival: string;
+    route: string[];
     price: number;
     seats: number;
     remainingSeats: number;
