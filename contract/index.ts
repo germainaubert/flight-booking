@@ -6,6 +6,7 @@ export class Flight {
     remainingSeats: number;
 }
 export class Booking {
+    id: string;
     firstname: string;
     lastname: string;
     email: string;

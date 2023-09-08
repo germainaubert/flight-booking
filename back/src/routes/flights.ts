@@ -9,6 +9,35 @@ flights.get('/', (req, res) => {
   res.json(flights)
 })
 
+flights.get('/bookingId', (req, res) => {
+  const bookingId = req.query.id
+
+  let json: any = fs.readFileSync('./data/booking.json');
+  let jsonData = JSON.parse(json);
+
+  let id: any = null
+
+
+  jsonData.forEach((booking: any) => {
+    if (booking.id === bookingId) {
+      id = booking.flightId
+    }
+  })
+
+  json = fs.readFileSync('./data/flights.json');
+  jsonData = JSON.parse(json);
+
+  let result = null
+
+  jsonData.forEach((flight: any) => {
+    if (flight.id === id) {
+      result = flight
+    }
+  })
+
+  res.json(result);
+})
+
 flights.get('/date', (req, res) => {
   const date = req.query.date
   const json: any = fs.readFileSync('./data/flights.json');

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Booking } from '../../../contract/index';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const confirmText = ref('');
 const route = useRoute();
+const router = useRouter();
 const flight = route.query;
 
 const form = ref<Booking>({
@@ -14,10 +15,10 @@ const form = ref<Booking>({
   flightId: flight?.id as string,
 });
 
-const submit = () => {
+const submit = async () => {
   try {
-    createBooking(form.value);
-    confirmText.value = 'Your booking has been confirmed';
+    const booking = await createBooking(form.value);
+    router.push({ path: 'recap', query: { id: booking.id } });
   } catch (error) {
     console.log(error);
   }

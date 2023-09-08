@@ -1,4 +1,5 @@
 import express from 'express'
+import { uuid } from 'uuidv4';
 import fs from 'fs'
 
 export const booking = express()
@@ -6,6 +7,8 @@ export const booking = express()
 booking.post('/', (req, res) => {
 
   const reservation = req.body
+
+  reservation.id = uuid()
 
   let bookings: any = fs.readFileSync('./data/booking.json');
   bookings = JSON.parse(bookings);
