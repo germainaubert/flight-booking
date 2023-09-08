@@ -37,9 +37,10 @@ watchEffect(async () => {
 
 <template>
   <div class="flex flex-col">
-    <header class="text-center flex flex-row flex-center">
-      <h1 class="text-4xl font-bold">Flight booking</h1>
-      <input type="date" id="start" name="trip-start" />
+    <header class="text-center flex flex-row justify-evenly">
+      <div class="flex-1"></div>
+      <div class="flex-1"><h1 class="text-4xl font-bold">Flight booking</h1></div>
+      <div class="flex-1"><input type="date" id="start" name="trip-start" /></div>
     </header>
     <span>Choisissez un vol</span>
     <div v-if="flights.length === 0">Loading...</div>
