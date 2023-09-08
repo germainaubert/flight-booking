@@ -3,6 +3,8 @@ export class Flight {
     depart: string;
     arrival: string;
     price: number;
+    seats: number;
+    remainingSeats: number;
 }
 export class Booking {
     firstname: string;
