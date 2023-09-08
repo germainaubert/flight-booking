@@ -38,12 +38,15 @@ watchEffect(async () => {
           <div class="flex flex-col">
             <span>Prix du vol: {{ flight.price }}€</span>
           </div>
-          <button
-            @click="onClick(flight)"
-            class="border-2 border-gray-200 p-4 text-white bg-red-500 rounded shadow-lg"
-          >
-            Select
-          </button>
+          <div v-if="flight.remainingSeats">
+            <button
+              @click="onClick(flight)"
+              class="border-2 border-gray-200 p-4 text-white bg-red-500 rounded shadow-lg"
+            >
+              Select
+            </button>
+          </div>
+          <div v-else>complet</div>
         </div>
       </div>
     </div>
