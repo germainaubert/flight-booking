@@ -1,1 +1,8 @@
-[{"id":"0","depart":"CDG","arrival":"JFK","price":1000,"seats":1000,"remainingSeats":1000},{"id":"1","depart":"CDG","arrival":"DTW","price":700,"seats":700},{"id":"2","depart":"JFK","arrival":"DTW","price":300,"seats":300},{"id":"3","depart":"JFK","arrival":"CDG","price":1000,"seats":1000},{"id":"4","depart":"DTW","arrival":"CDG","price":700,"seats":700},{"id":"5","depart":"DTW","arrival":"JFK","price":300,"seats":300}]
+[
+  { "id": "0", "depart": "CDG", "arrival": "JFK", "price": 1000, "seats": 1000 },
+  { "id": "1", "depart": "CDG", "arrival": "DTW", "price": 700, "seats": 700 },
+  { "id": "2", "depart": "JFK", "arrival": "DTW", "price": 300, "seats": 300 },
+  { "id": "3", "depart": "JFK", "arrival": "CDG", "price": 1000, "seats": 1000 },
+  { "id": "4", "depart": "DTW", "arrival": "CDG", "price": 700, "seats": 700 },
+  { "id": "5", "depart": "DTW", "arrival": "JFK", "price": 300, "seats": 300 }
+]
