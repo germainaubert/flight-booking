@@ -4,9 +4,11 @@ import { Flight } from '../../../contract/index';
 import { useRouter } from 'vue-router';
 
 const ROUTE = "CDG-DTW-JFK";
+const NO_VEGE_ROUTE = "JFK-CDG";
 
 onMounted(async () => {
   flights.value = await getFlights();
+  menuVege.value = flights.value.map(flight => ({ id: flight.id, vege: false }));
 });
 
 const getFlights = async () => {
@@ -26,9 +28,13 @@ const concatenateArray = (array: string[]): string => {
   return array.join("-");
 }
 
+type menuVege = { id: string, vege: boolean };
+
 const router = useRouter();
 const date = ref();
 const flights = ref<Flight[]>([]);
+const menuVege = ref<menuVege[]>([]);
+
 
 const onClick = (flight: Flight) => {
   router.push({ path: 'booking', query: { ...flight } });
@@ -42,6 +48,15 @@ const getFlightsByDate = async () => {
     flights.value = await getFlights();
   }
 };
+
+const getMenuVegeByFlightId = (flightId: string): menuVege => {
+  return menuVege.value.find(value => value.id === flightId)!;
+}
+
+const updateVegeMenuOption = (flightId: string) => {
+  const index = menuVege.value.findIndex(menu => menu.id === flightId);
+  menuVege.value[index].vege = !menuVege.value[index].vege;
+}
 </script>
 
 <template>
@@ -65,6 +80,7 @@ const getFlightsByDate = async () => {
           </div>
           <div class="flex flex-col">
             <span>Prix du vol: {{ applyReduction(flight, 0.1, ROUTE) }}€</span>
+            <span v-if="concatenateArray(flight.route) !== NO_VEGE_ROUTE">Option végétarien: <input type="checkbox" :value="getMenuVegeByFlightId(flight.id)" @change="updateVegeMenuOption(flight.id)" /></span>
           </div>
           <div v-if="flight.remainingSeats">
             <button
