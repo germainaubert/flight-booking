@@ -4,7 +4,7 @@ import { Flight } from '../../../contract/index';
 import { useRouter } from 'vue-router';
 
 const ROUTE = "CDG-DTW-JFK";
-const NO_VEGE_ROUTE = "JFK-CDG";
+const NO_VEGE_ROUTE = "DTW-JFK";
 
 onMounted(async () => {
   flights.value = await getFlights();
