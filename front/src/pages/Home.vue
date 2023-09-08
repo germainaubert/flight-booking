@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Flight } from '../../../contract/index';
 import { useRouter } from 'vue-router';
+
+onMounted(async () => {
+  flights.value = await getFlights();
+});
 
 const getFlights = async () => {
   const response = await fetch('http://localhost:3000/flights');
@@ -9,16 +13,21 @@ const getFlights = async () => {
 };
 
 const router = useRouter();
+const date = ref();
 const flights = ref<Flight[]>([]);
 
 const onClick = (flight: Flight) => {
   router.push({ path: 'booking', query: { ...flight } });
 };
 
-// not onmounted ?
-watchEffect(async () => {
-  flights.value = await getFlights();
-});
+const getFlightsByDate = async () => {
+  if (date.value) {
+    const response = await fetch('http://localhost:3000/flights/date/?date=' + date.value);
+    flights.value = await response.json();
+  } else {
+    flights.value = await getFlights();
+  }
+};
 </script>
 
 <template>
@@ -26,7 +35,9 @@ watchEffect(async () => {
     <header class="text-center flex flex-row justify-evenly">
       <div class="flex-1"></div>
       <div class="flex-1"><h1 class="text-4xl font-bold">Flight booking</h1></div>
-      <div class="flex-1"><input type="date" id="start" name="trip-start" /></div>
+      <div class="flex-1">
+        <input type="date" v-model="date" @change="getFlightsByDate" />
+      </div>
     </header>
     <span>Choisissez un vol</span>
     <div v-if="flights.length === 0">Loading...</div>
