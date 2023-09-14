@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { handledError } from '../contract'
 import { getBookingById } from './service/booking.services'
+import { getAllFlights, getFlightsByBookingId } from './service/flights.services'
 
 
 const app = express()
@@ -11,7 +12,9 @@ const cors = require('cors')
 app.use(cors());
 app.use(bodyParser.json())
 
-app.get('booking/id', getBookingById)
+app.get('/booking/id', getBookingById)
+app.get('/flights/bookingId', getFlightsByBookingId)
+app.get('/flights', getAllFlights)
 
 //ROUTE TEST
 app.use('/test', (req, res, next) => {

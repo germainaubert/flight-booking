@@ -7,7 +7,6 @@ import { Flight, Booking } from '../../../contract'
 export const booking: Express = express()
 
 booking.get('/id', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
-
   const id: string = req.query.id
   let result: Booking | null = null
 
