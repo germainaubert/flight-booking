@@ -4,6 +4,7 @@ import { Flight } from '../../../contract/index';
 import { useRouter } from 'vue-router';
 import { applyReduction } from '../helpers';
 import { ROUTE } from '../const';
+import Header from '../component/Header.vue';
 
 onMounted(async () => {
   flights.value = await getFlights();
@@ -17,8 +18,6 @@ const getFlights = async () => {
 
 type menuVege = { id: string; vege: boolean };
 const router = useRouter();
-const date = ref();
-const bookingSearch = ref();
 const flights = ref<Flight[]>([]);
 const menuVege = ref<menuVege[]>([]);
 
@@ -26,45 +25,23 @@ const onClick = (flight: Flight) => {
   router.push({ path: 'booking', query: { ...flight } });
 };
 
-const getFlightsByDate = async () => {
-  if (date.value) {
-    const response = await fetch('http://localhost:3000/flights/date/?date=' + date.value);
+const getFlightsByDate = async (date: string) => {
+  if (date) {
+    const response = await fetch('http://localhost:3000/flights/date/?date=' + date);
     flights.value = await response.json();
   } else {
     flights.value = await getFlights();
   }
 };
 
-const searchBooking = () => {
-  router.push({ path: 'recap', query: { id: bookingSearch.value } });
+const searchBooking = (bookingSearch: string) => {
+  router.push({ path: 'recap', query: { id: bookingSearch } });
 };
 </script>
 
 <template>
   <div class="flex flex-col">
-    <header class="text-center flex flex-row justify-evenly h-12">
-      <div class="flex justify-evenly flex-1">
-        <input
-          type="text"
-          v-model="bookingSearch"
-          placeholder="Booking id"
-          class="border-2 border-grey-200 p-2"
-        />
-
-        <button
-          @click="searchBooking"
-          class="border-2 border-gray-200 px-2 text-white bg-red-500 rounded shadow-lg"
-        >
-          Search
-        </button>
-      </div>
-      <div class="flex justify-evenly flex-1">
-        <h1 class="text-4xl font-bold">Flight booking</h1>
-      </div>
-      <div class="flex justify-evenly flex-1">
-        <input type="date" v-model="date" @change="getFlightsByDate" />
-      </div>
-    </header>
+    <Header @searchBooking="searchBooking" @getFlightsByDate="getFlightsByDate" />
     <div v-if="flights.length === 0">Loading...</div>
     <div v-else>
       <div v-for="flight in flights" :key="flight.id">

@@ -1,8 +1,8 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import { booking } from './src/routes/booking'
 import { flights } from './src/routes/flights'
 import fetchConversionData from './src/services/convertor'
+import bodyParser from 'body-parser'
 
 const app = express()
 const port = 3000
