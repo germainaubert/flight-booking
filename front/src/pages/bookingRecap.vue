@@ -41,5 +41,6 @@ const getFlightByBookingId = async () => {
         <span>Places restantes: {{ flight.remainingSeats }}</span>
       </div>
     </div>
+    <div v-else>Error booking id not found</div>
   </div>
 </template>
