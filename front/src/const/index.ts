@@ -1,2 +1,2 @@
-export const ROUTE = 'CDG-DTW-JFK';
-export const NO_VEGE_ROUTE = 'DTW-JFK';
+export const ROUTE = 'CDG-DTW-JFK' || 'JFK-DTW-CDG';
+export const NO_VEGE_ROUTE = 'JFK-DTW' || 'DTW-JFK';
