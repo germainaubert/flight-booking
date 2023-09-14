@@ -7,19 +7,36 @@ import { ROUTE, NO_VEGE_ROUTE } from '../const';
 
 onMounted(async () => {
   flights.value = await getFlights();
+  currencies.value = await getCurrencies();
+  console.log(flights)
   menuVege.value = flights.value.map((flight) => ({ id: flight.id, vege: false }));
 });
 
 const getFlights = async () => {
-  const response = await fetch('http://localhost:3000/flights');
-  return response.json();
+  try {
+		const response = await fetch('http://localhost:3000/flights');
+  	return response.json();
+  } catch(e) {
+		console.log(e);
+	}
+  
 };
+
+const getCurrencies = async () => {
+    try {
+        const res = await fetch('http://localhost:3000/conversion');
+        return res.json();
+    } catch(e) {
+        console.log(e);
+    }
+} 
 
 type menuVege = { id: string; vege: boolean };
 const router = useRouter();
 const date = ref();
 const bookingSearch = ref();
 const flights = ref<Flight[]>([]);
+const currencies = ref<string[]>([]);
 const menuVege = ref<menuVege[]>([]);
 
 const onClick = (flight: Flight) => {
