@@ -2,9 +2,10 @@
 import { ref, onMounted } from 'vue';
 import { Flight } from '../../../contract/index';
 import { useRouter } from 'vue-router';
-import { applyReduction, concatenateArray } from '../helpers';
-import { ROUTE, NO_VEGE_ROUTE } from '../const';
+import { applyReduction } from '../helpers';
+import { ROUTE } from '../const';
 import Header from '../component/Header.vue';
+
 onMounted(async () => {
   flights.value = await getFlights();
   console.log(flights)
@@ -30,7 +31,7 @@ const onClick = (flight: Flight) => {
   router.push({ path: 'booking', query: { ...flight } });
 };
 
-const getFlightsByDate = async (date : string) => {
+const getFlightsByDate = async (date: string) => {
   if (date) {
     const response = await fetch('http://localhost:3000/flights/date/?date=' + date);
     flights.value = await response.json();
@@ -39,14 +40,6 @@ const getFlightsByDate = async (date : string) => {
   }
 };
 
-const getMenuVegeByFlightId = (flightId: string): menuVege => {
-  return menuVege.value.find((value) => value.id === flightId)!;
-};
-
-const updateVegeMenuOption = (flightId: string) => {
-  const index = menuVege.value.findIndex((menu) => menu.id === flightId);
-  menuVege.value[index].vege = !menuVege.value[index].vege;
-};
 const searchBooking = (bookingSearch: string) => {
   router.push({ path: 'recap', query: { id: bookingSearch } });
 };
@@ -68,13 +61,6 @@ const searchBooking = (bookingSearch: string) => {
           </div>
           <div class="flex flex-col">
             <span>Prix du vol: {{ applyReduction(flight, 0.1, ROUTE) }}€</span>
-            <span v-if="concatenateArray(flight.route) !== NO_VEGE_ROUTE"
-              >Option végétarien:
-              <input
-                type="checkbox"
-                :value="getMenuVegeByFlightId(flight.id)"
-                @change="updateVegeMenuOption(flight.id)"
-            /></span>
           </div>
           <div class="flex flex-col">
             <span>Places restantes: {{ flight.remainingSeats }}</span>

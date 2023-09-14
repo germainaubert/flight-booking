@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { applyReduction } from '../helpers';
+import { applyReduction, translateBoolean } from '../helpers';
 import { ROUTE } from '../const';
 
 const route = useRoute();
 const bookingId = route.query.id;
 const flight = ref();
+const booking = ref();
 
 onMounted(async () => {
+  booking.value = await getBooking();
   flight.value = await getFlightByBookingId();
 });
+
+const getBooking = async () => {
+  const response = await fetch('http://localhost:3000/booking/id/?id=' + bookingId);
+  return response.json();
+};
 
 const getFlightByBookingId = async () => {
   const response = await fetch('http://localhost:3000/flights/bookingId/?id=' + bookingId);
@@ -36,6 +43,7 @@ const getFlightByBookingId = async () => {
       </div>
       <div class="flex flex-col">
         <span>Prix du vol: {{ applyReduction(flight, 0.1, ROUTE) }}€</span>
+        <span>Repas végétarien: {{ translateBoolean(booking.vege) }}</span>
       </div>
       <div class="flex flex-col">
         <span>Places restantes: {{ flight.remainingSeats }}</span>

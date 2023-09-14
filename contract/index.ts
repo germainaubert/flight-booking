@@ -11,4 +11,5 @@ export class Booking {
     lastname: string;
     email: string;
     flightId: string;
+    vege: boolean
 }

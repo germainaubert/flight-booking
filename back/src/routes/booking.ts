@@ -4,6 +4,23 @@ import fs from 'fs'
 
 export const booking = express()
 
+booking.get('/id', (req, res) => {
+
+  const id = req.query.id
+  let result = null
+
+  let json: any = fs.readFileSync('./data/booking.json');
+  let jsonData = JSON.parse(json);
+
+  jsonData.forEach((booking: any) => {
+    if (booking.id === id) {
+      result = booking
+    }
+  })
+
+  res.json(result);
+})
+
 booking.post('/', (req, res) => {
 
   const reservation = req.body
@@ -28,3 +45,4 @@ booking.post('/', (req, res) => {
   fs.writeFileSync('./data/booking.json', JSON.stringify(bookings));
   res.json(reservation);
 })
+
