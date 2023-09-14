@@ -8,7 +8,7 @@ export type Flight = {
     menuVege: boolean;
 }
 export type Booking = {
-    id: string;
+    id?: string;
     firstname: string;
     lastname: string;
     email: string;

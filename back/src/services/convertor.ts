@@ -27,7 +27,6 @@ export function convertCurrency(currency: string, valueToConvert: number): numbe
         if(rate) {
             valueToConvert *= rate;
         } else {
-            console.log("TEST");
             throw new handledError(400, 'Unable to convert price from EUR to ' + currency);
         }
     }

@@ -29,6 +29,7 @@ const submit = async () => {
 };
 
 const createBooking = async (user: Booking) => {
+  console.log("create booking")
   const response = await fetch("http://localhost:3000/booking", {
     method: "POST",
     headers: {
