@@ -13,8 +13,8 @@ app.use(cors());
 app.use(bodyParser.json())
 
 app.get('/booking/id', getBookingById)
-app.get('/flights/bookingId', getFlightsByBookingId)
-app.get('/flights', getAllFlights)
+app.get('/flight/bookingId', getFlightsByBookingId)
+app.get('/flight', getAllFlights)
 
 //ROUTE TEST
 app.use('/test', (req, res, next) => {
