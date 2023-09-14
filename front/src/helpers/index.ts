@@ -8,5 +8,9 @@ export const applyReduction = (flight: Flight, reduction: number, route: string)
   return flight.price;
 };
 export const concatenateArray = (array: string[]): string => {
-  console.log('concatenateArray', array);
+  return array.join('-');
 };
+
+export const translateBoolean = (boolean: boolean): string => {
+  return boolean ? 'Oui' : 'Non';
+}

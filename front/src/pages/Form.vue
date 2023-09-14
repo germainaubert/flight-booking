@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { Booking } from '../../../contract/index';
 import { useRoute, useRouter } from 'vue-router';
+import { concatenateArray } from '../helpers';
+import { NO_VEGE_ROUTE } from '../const';
 
 const confirmText = ref('');
 const route = useRoute();
@@ -13,6 +15,7 @@ const form = ref<Booking>({
   lastname: '',
   email: '',
   flightId: flight?.id as string,
+  vege: false,
 });
 
 const submit = async () => {
@@ -60,6 +63,11 @@ const createBooking = async (user: Booking) => {
         placeholder="email"
         class="border-2 border-green-200 p-2"
       />
+
+      <span v-if="concatenateArray(flight?.route) !== NO_VEGE_ROUTE"
+        >Option végétarien:
+        <input type="checkbox" v-model="form.vege" />
+      </span>
 
       <button type="submit">Submit</button>
     </form>

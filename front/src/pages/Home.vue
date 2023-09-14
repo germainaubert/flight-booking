@@ -1,16 +1,25 @@
 <script setup lang="ts">
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
-import { ref, onMounted } from "vue";
-import { Flight } from "../../../contract/index";
 import Header from "../component/Header.vue";
 import FlightCard from "../component/FlightCard.vue";
-import { useRouter } from "vue-router";
+import { ref, onMounted } from 'vue';
+import { Flight } from '../../../contract/index';
+import { useRouter } from 'vue-router';
+
+onMounted(async () => {
+  flights.value = await getFlights();
+  console.log(flights)
+});
 
 const router = useRouter();
 const getFlights = async () => {
-  const response = await fetch("http://localhost:3000/flights");
-  return response.json();
+  try {
+		const response = await fetch('http://localhost:3000/flights/?currency=' + localStorage.currency);
+  	return response.json();
+  } catch(e) {
+		console.log(e);
+	}
 };
 
 const flights = ref<Flight[]>([]);

@@ -1,3 +1,4 @@
+import { handledError } from '../contract';
 import express from 'express'
 import fs from 'fs'
 
@@ -23,6 +24,7 @@ flights.get('/bookingId', (req, res) => {
       id = booking.flightId
     }
   })
+  if (id == null) throw new handledError(404, "Booking id not found");
 
   json = fs.readFileSync('./data/flights.json');
   jsonData = JSON.parse(json);
