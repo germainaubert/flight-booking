@@ -1,6 +1,6 @@
 export type Flight = {
     id: string;
-    route: string[];
+    route: airport[];
     date: string
     price: number;
     seats: number;
@@ -15,3 +15,5 @@ export type Booking = {
     flightId: string;
     vege: boolean
 }
+
+type airport = "CDG" | "JFK" | "DTW"
