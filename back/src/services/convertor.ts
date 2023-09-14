@@ -1,3 +1,4 @@
+import { handledError } from '../contract';
 import { readFile, writeRecords } from '../tool';
 import axios from 'axios';
 
@@ -20,13 +21,17 @@ export function fetchConversionData (attempt: number): void {
     })
 }
 
-export function convertCurrency(currency: string, valueToConvert: number): number | undefined {
-    if(currency !== "EUR") {
+export function convertCurrency(currency: string, valueToConvert: number): number {
+    if(currency !== 'EUR') {
         const rate = getCurrencyRate(currency);
         if(rate) {
-            return valueToConvert * rate;
+            valueToConvert *= rate;
+        } else {
+            console.log("TEST");
+            throw new handledError(400, 'Unable to convert price from EUR to ' + currency);
         }
     }
+    return valueToConvert;
 }
 
 function getCurrencyRate(currency: string): number | undefined {
@@ -37,14 +42,14 @@ function getCurrencyRate(currency: string): number | undefined {
     }
     // if no result, set EUR as default
     if(!returnCurrency) {
-        console.log("Unable to retrieve the rate of the following currency: " + currency);
+        console.log('Unable to retrieve the rate of the following currency: ' + currency);
     }
     return returnCurrency.rate;
 }
 
 export function getSimpleCurrencyList() {
     const fileContent = readFile(filePath);
-    const list = new Array("EUR");
+    const list = new Array('EUR');
     if(fileContent) {
         for(const currency of fileContent) {
             list.push(currency.currency);

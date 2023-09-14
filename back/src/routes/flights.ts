@@ -1,23 +1,23 @@
-import { handledError } from '../contract';
-import express from 'express'
+import { convertCurrency } from '../services/convertor';
+import { handledError, FlightList, FlightBooking } from '../contract';
+import { getFlightList } from '../services/flights';
+import express, { Express, Response, Request } from 'express'
 import fs from 'fs'
 
-export const flights = express()
+export const flights: Express = express();
 
-flights.get('/', (req, res) => {
-  const json: any = fs.readFileSync('./data/flights.json');
-  const flights = JSON.parse(json);
-  res.json(flights)
+flights.get('/', (req: Request<unknown, unknown, unknown, FlightList>, res: Response) => {
+	const test = getFlightList(req.query.currency);
+	res.json(test);
 })
 
-flights.get('/bookingId', (req, res) => {
-  const bookingId = req.query.id
+flights.get('/bookingId', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
+  const bookingId = req.query.id;
 
   let json: any = fs.readFileSync('./data/booking.json');
   let jsonData = JSON.parse(json);
 
   let id: any = null
-
 
   jsonData.forEach((booking: any) => {
     if (booking.id === bookingId) {
@@ -33,6 +33,7 @@ flights.get('/bookingId', (req, res) => {
 
   jsonData.forEach((flight: any) => {
     if (flight.id === id) {
+			flight.price = convertCurrency(req.query.currency, flight.price);
       result = flight
     }
   })

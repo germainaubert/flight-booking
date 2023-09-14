@@ -7,3 +7,12 @@ export class handledError {
         this.message = message;
     }
 }
+
+export type FlightList = {
+    currency: string;
+}
+
+export type FlightBooking = {
+    id: string;
+    currency: string;
+}
