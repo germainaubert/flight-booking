@@ -2,14 +2,12 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { handledError } from '../contract'
 
-
 const app = express()
 const port = 3003
 const cors = require('cors')
 
 app.use(cors());
 app.use(bodyParser.json())
-
 
 //ROUTE TEST
 app.use('/test', (req, res, next) => {

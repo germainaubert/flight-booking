@@ -3,7 +3,6 @@ import bodyParser from 'body-parser'
 import { handledError } from '../contract'
 import { getBookingById } from './service/booking.services'
 
-
 const app = express()
 const port = 3004
 const cors = require('cors')
