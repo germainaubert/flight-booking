@@ -4,6 +4,7 @@ export class Flight {
     price: number;
     seats: number;
     remainingSeats: number;
+    menuVege: boolean;
 }
 export class Booking {
     id: string;

@@ -8,20 +8,12 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const flight = defineProps({
-  flight: Flight,
+  flight: {
+    type: Object as () => Flight,
+    required: true,
+  },
 });
 const flightRef = ref<Flight>(flight.flight);
-type menuVege = { id: string; vege: boolean };
-const menuVege = ref<menuVege[]>([]);
-
-const getMenuVegeByFlightId = (flightId: string): menuVege => {
-  return menuVege.value.find((value) => value.id === flightId)!;
-};
-
-const updateVegeMenuOption = (flightId: string) => {
-  const index = menuVege.value.findIndex((menu) => menu.id === flightId);
-  menuVege.value[index].vege = !menuVege.value[index].vege;
-};
 
 const redirectBooking = (flight: Flight) => {
   router.push({ path: "booking", query: { ...flight } });
@@ -70,10 +62,39 @@ const redirectBooking = (flight: Flight) => {
                   Option végétarien
                 </dt>
                 <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
-                 <Switch v-model="menuVege" :class="[menuVege ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
-                  <span class="sr-only">Use setting</span>
-                  <span aria-hidden="true" :class="[menuVege ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
-                </Switch>
+                 <!-- if flightref.menuVege icon check or close -->
+                 <div v-if="flightRef.menuVege" class="text-green-500 flex items-center space-x-2">
+                  <svg
+                    class="h-6 w-6 "
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M5 13l4 4L19 7"
+                      />
+                  </svg>
+                  <span class="text-sm">Inclus</span>
+                </div>
+                <div v-else class="text-red-500 flex items-center space-x-2">
+                  <svg
+                    class="h-6 w-6 "
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M6 18L18 6M6 6l12 12"
+                      />
+                  </svg>
+                  <span class="text-sm">Non inclus</span>
+                </div>
                 </dd>
                 </div>
               
