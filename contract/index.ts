@@ -1,12 +1,13 @@
-export class Flight {
+export type Flight = {
     id: string;
-    route: string[];
+    route: airport[];
+    date: string
     price: number;
     seats: number;
     remainingSeats: number;
     menuVege: boolean;
 }
-export class Booking {
+export type Booking = {
     id: string;
     firstname: string;
     lastname: string;
@@ -14,3 +15,5 @@ export class Booking {
     flightId: string;
     vege: boolean
 }
+
+type airport = "CDG" | "JFK" | "DTW"

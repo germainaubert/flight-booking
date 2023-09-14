@@ -7,3 +7,11 @@ export class handledError {
         this.message = message;
     }
 }
+
+export type Id = {
+    id: string;
+}
+
+export type Date = {
+    date: string;
+}

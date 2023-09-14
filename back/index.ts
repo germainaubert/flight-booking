@@ -3,6 +3,7 @@ import { booking } from './src/routes/booking'
 import { flights } from './src/routes/flights'
 import { conversion } from './src/routes/conversion'
 import { fetchConversionData } from './src/services/convertor'
+import bodyParser from 'body-parser'
 import { handledError } from './src/contract'
 
 const app = express()
@@ -12,9 +13,9 @@ const cors = require('cors')
 app.use(cors());
 
 app.use('/booking', booking)
-console.log('booking', flights)
 app.use('/flights', flights)
 app.use('/conversion', conversion)
+app.use(bodyParser.json())
 
 app.use((err: any, req: any, res: any, next: any) => {//middleware de gestion d'erreur
   const handledError: handledError = err

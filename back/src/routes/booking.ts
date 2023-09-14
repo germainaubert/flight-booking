@@ -1,19 +1,20 @@
-import express from 'express'
+import express, { Express, Response, Request } from 'express';
 import { uuid } from 'uuidv4';
 import fs from 'fs'
-import { handledError } from '../contract';
+import { handledError, Id } from '../contract';
+import { Flight, Booking } from '../../../contract'
 
-export const booking = express()
+export const booking: Express = express()
 
-booking.get('/id', (req, res) => {
+booking.get('/id', (req: Request<unknown, unknown, unknown, Id>, res: Response) => {
 
-  const id = req.query.id
-  let result = null
+  const id: string = req.query.id
+  let result: Booking | null = null
 
-  let json: any = fs.readFileSync('./data/booking.json');
-  let jsonData = JSON.parse(json);
+  let json: string = fs.readFileSync('./data/booking.json', 'utf-8');
+  let bookings: Booking[] = JSON.parse(json);
 
-  jsonData.forEach((booking: any) => {
+  bookings.forEach((booking: Booking) => {
     if (booking.id === id) {
       result = booking
     }
@@ -23,13 +24,12 @@ booking.get('/id', (req, res) => {
   res.json(result);
 })
 
-booking.post('/', (req, res) => {
-  const reservation = req.body
+booking.post('/', (req: Request<unknown, unknown, Booking, unknown>, res: Response) => {
+  const reservation: Booking = req.body
   reservation.id = uuid()
 
-  let flights: any = fs.readFileSync('./data/flights.json');
-  flights = JSON.parse(flights);
-
+  let json: string = fs.readFileSync('./data/flights.json', 'utf-8');
+  const flights: Flight[] = JSON.parse(json);
 
   for (const flight of flights) {
     if (flight.id === reservation.flightId) {
@@ -40,8 +40,8 @@ booking.post('/', (req, res) => {
     }
   }
 
-  let bookings: any = fs.readFileSync('./data/booking.json');
-  bookings = JSON.parse(bookings);
+  json = fs.readFileSync('./data/booking.json', 'utf-8');
+  const bookings: Booking[] = JSON.parse(json);
   bookings.push(reservation);
 
   fs.writeFileSync('./data/flights.json', JSON.stringify(flights));
