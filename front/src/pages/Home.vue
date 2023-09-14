@@ -14,12 +14,11 @@ onMounted(async () => {
 
 const getFlights = async () => {
   try {
-		const response = await fetch('http://localhost:3000/flights');
+		const response = await fetch('http://localhost:3000/flights/?currency=' + localStorage.currency);
   	return response.json();
   } catch(e) {
 		console.log(e);
 	}
-  
 };
 
 type menuVege = { id: string; vege: boolean };

@@ -1,10 +1,11 @@
+import { readFile, writeRecords } from '../tool';
 import axios from 'axios';
-import fs from 'fs';
 
 const url: string = 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml';
+const filePath: string = './data/conversions.json';
 const maxAttempt = 5;
 
-function fetchConversionData (attempt: number): void {
+export function fetchConversionData (attempt: number): void {
     attempt++;
     axios.get(url)
     .then(function (response) {
@@ -19,10 +20,43 @@ function fetchConversionData (attempt: number): void {
     })
 }
 
+export function convertCurrency(currency: string, valueToConvert: number): number | undefined {
+    if(currency !== "EUR") {
+        const rate = getCurrencyRate(currency);
+        if(rate) {
+            return valueToConvert * rate;
+        }
+    }
+}
+
+function getCurrencyRate(currency: string): number | undefined {
+    const fileContent = readFile(filePath);
+    let returnCurrency;
+    if(fileContent) {
+        returnCurrency = fileContent.find((row: any) => row.currency === currency)
+    }
+    // if no result, set EUR as default
+    if(!returnCurrency) {
+        console.log("Unable to retrieve the rate of the following currency: " + currency);
+    }
+    return returnCurrency.rate;
+}
+
+export function getSimpleCurrencyList() {
+    const fileContent = readFile(filePath);
+    const list = new Array("EUR");
+    if(fileContent) {
+        for(const currency of fileContent) {
+            list.push(currency.currency);
+        }
+    }
+    return list;
+}
+
 function handleResponse(data: string) {
     const currencies = parseData(data);
     if(currencies) {
-        writeConversionJSON(currencies);
+        writeRecords(filePath, currencies);
     } else {
         console.log('Xml conversion object is empty');
     }
@@ -35,17 +69,3 @@ function parseData(responseData: string): Object[] {
     }
     return currencies;
 }
-
-function writeConversionJSON(currencies: Object[]): void {
-    fs.writeFile('./data/conversions.json', JSON.stringify(currencies), (e) => {
-        if(e) {
-            console.log("Unable to write conversion file");
-            console.log(e);
-        } else {
-            console.log('File has been saved');
-
-        }
-    });
-}
-
-export default fetchConversionData;

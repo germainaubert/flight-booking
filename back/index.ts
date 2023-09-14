@@ -2,7 +2,7 @@ import express from 'express'
 import { booking } from './src/routes/booking'
 import { flights } from './src/routes/flights'
 import { conversion } from './src/routes/conversion'
-import fetchConversionData from './src/services/convertor'
+import { fetchConversionData } from './src/services/convertor'
 import bodyParser from 'body-parser'
 
 const app = express()
