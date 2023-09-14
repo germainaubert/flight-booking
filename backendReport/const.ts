@@ -1,0 +1,1 @@
+export const databaseAccesUrl = "http://localhost:3002"

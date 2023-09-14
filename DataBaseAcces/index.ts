@@ -18,7 +18,7 @@ app.use('/conversion', conversion)
 
 app.use((err: any, req: any, res: any, next: any) => {//middleware de gestion d'erreur
   const handledError: handledError = err
-  res.status(handledError.code).send(handledError.message)
+  res.status(handledError.code).json({ code: handledError.code, message: handledError.message })
 })
 
 app.listen(port, () => {
