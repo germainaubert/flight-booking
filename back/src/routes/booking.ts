@@ -26,22 +26,21 @@ booking.get('/id', (req, res) => {
 booking.post('/', (req, res) => {
 
   const reservation = req.body
-
   reservation.id = uuid()
+
+  let flights: any = fs.readFileSync('./data/flights.json');
+  flights = JSON.parse(flights);
+
+  for (const flight of flights) {
+    if (flight.id === reservation.flightId && flight.remainingSeats > 0) {
+      flight.remainingSeats -= 1;
+    }
+    else if (flight.remainingSeats === 0) return null
+  }
 
   let bookings: any = fs.readFileSync('./data/booking.json');
   bookings = JSON.parse(bookings);
   bookings.push(reservation);
-
-  let flights: any = fs.readFileSync('./data/flights.json');
-  flights = JSON.parse(flights);
-  flights = flights.map((flight: any) => {
-    if (flight.id === reservation.flightId) {
-      flight.remainingSeats -= 1;
-    }
-
-    return flight;
-  });
 
   fs.writeFileSync('./data/flights.json', JSON.stringify(flights));
   fs.writeFileSync('./data/booking.json', JSON.stringify(bookings));

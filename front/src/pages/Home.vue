@@ -8,12 +8,18 @@ import Header from '../component/Header.vue';
 
 onMounted(async () => {
   flights.value = await getFlights();
+  console.log(flights)
   menuVege.value = flights.value.map((flight) => ({ id: flight.id, vege: false }));
 });
 
 const getFlights = async () => {
-  const response = await fetch('http://localhost:3000/flights');
-  return response.json();
+  try {
+		const response = await fetch('http://localhost:3000/flights');
+  	return response.json();
+  } catch(e) {
+		console.log(e);
+	}
+  
 };
 
 type menuVege = { id: string; vege: boolean };

@@ -1,6 +1,7 @@
 import express from 'express'
 import { booking } from './src/routes/booking'
 import { flights } from './src/routes/flights'
+import { conversion } from './src/routes/conversion'
 import fetchConversionData from './src/services/convertor'
 import bodyParser from 'body-parser'
 import { handledError } from './src/contract'
@@ -14,6 +15,7 @@ app.use(bodyParser.json())
 
 app.use('/booking', booking)
 app.use('/flights', flights)
+app.use('/conversion', conversion)
 
 app.use((err: any, req: any, res: any, next: any) => {//middleware de gestion d'erreur
   const handledError: handledError = err

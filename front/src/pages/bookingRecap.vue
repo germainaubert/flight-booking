@@ -15,7 +15,6 @@ onMounted(async () => {
 });
 
 const getBooking = async () => {
-  console.log(bookingId);
   const response = await fetch('http://localhost:3000/booking/id/?id=' + bookingId);
   return response.json();
 };
