@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Flight } from "../../../contract/index";
-import { applyReduction, concatenateArray } from "../helpers";
-import { ROUTE, NO_VEGE_ROUTE } from "../const";
+import { applyReduction } from "../helpers";
+import { ROUTE } from "../const";
 import { defineProps, ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -14,7 +14,7 @@ const flight = defineProps({
   },
 });
 const flightRef = ref<Flight>(flight.flight);
-
+console.log(flightRef.value);
 const redirectBooking = (flight: Flight) => {
   router.push({ path: "booking", query: { ...flight } });
 };
