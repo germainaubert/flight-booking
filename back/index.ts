@@ -11,11 +11,11 @@ const port = 3000
 const cors = require('cors')
 
 app.use(cors());
-app.use(bodyParser.json())
 
 app.use('/booking', booking)
 app.use('/flights', flights)
 app.use('/conversion', conversion)
+app.use(bodyParser.json())
 
 app.use((err: any, req: any, res: any, next: any) => {//middleware de gestion d'erreur
   const handledError: handledError = err
