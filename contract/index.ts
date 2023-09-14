@@ -1,11 +1,13 @@
-export class Flight {
+export type Flight = {
     id: string;
     route: string[];
+    date: string
     price: number;
     seats: number;
     remainingSeats: number;
+    menuVege: boolean;
 }
-export class Booking {
+export type Booking = {
     id: string;
     firstname: string;
     lastname: string;
