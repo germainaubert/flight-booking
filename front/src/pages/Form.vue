@@ -66,8 +66,8 @@ const createBooking = async (user: Booking) => {
 
       <span v-if="concatenateArray(flight?.route) !== NO_VEGE_ROUTE"
         >Option végétarien:
-        <input type="checkbox" :value="form.vege" @change="form.vege = !form.vege"
-      /></span>
+        <input type="checkbox" v-model="form.vege" />
+      </span>
 
       <button type="submit">Submit</button>
     </form>
