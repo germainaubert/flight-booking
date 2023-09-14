@@ -1,12 +1,12 @@
 import express, { Express, Response, Request } from 'express';
 import { uuid } from 'uuidv4';
 import fs from 'fs'
-import { handledError, Id } from '../contract';
+import { handledError, FlightBooking } from '../contract';
 import { Flight, Booking } from '../../../contract'
 
 export const booking: Express = express()
 
-booking.get('/id', (req: Request<unknown, unknown, unknown, Id>, res: Response) => {
+booking.get('/id', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
 
   const id: string = req.query.id
   let result: Booking | null = null
