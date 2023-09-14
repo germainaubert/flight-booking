@@ -4,21 +4,16 @@ import { handledError } from '../contract'
 
 
 const app = express()
-const port = 3001
+const port = 3004
 const cors = require('cors')
 
 app.use(cors());
 app.use(bodyParser.json())
 
-//MIDDLEWARE GESTION DES AUTHORISATIONS
-app.use((req, res, next) => {
-    console.log('auth dans header =>', req.headers)
-    next()
-})
 
 //ROUTE TEST
 app.use('/test', (req, res, next) => {
-    res.send('TEST EXTERNAL API OK')
+    res.send('TEST BACKEND REPORT OK')
 })
 
 //MIDDLEWARE GESTION ERREUR
@@ -28,5 +23,5 @@ app.use((err: any, req: any, res: any, next: any) => {
 })
 
 app.listen(port, () => {
-    console.log(`External API listening on port ${port}`)
+    console.log(`Internal API listening on port ${port}`)
 })

@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { handledError } from './contract'
+import { handledError } from '../contract'
 
 
 const app = express()
@@ -9,8 +9,6 @@ const cors = require('cors')
 
 app.use(cors());
 app.use(bodyParser.json())
-
-
 
 
 //ROUTE TEST

@@ -1,8 +1,8 @@
-import { fetchConversionData } from './src/services/convertor'
-import { launchExternalApi } from './src/externalApi'
-import { launchInternalApi } from './src/internalApi'
 
-fetchConversionData(0);
-
-launchInternalApi()
-launchExternalApi()
+console.log("euh mon gars si tu vois sa c'est que ta merdé quelque part")
+console.log("euh mon gars si tu vois sa c'est que ta merdé quelque part")
+console.log("euh mon gars si tu vois sa c'est que ta merdé quelque part")
+console.log("euh mon gars si tu vois sa c'est que ta merdé quelque part")
+console.log("euh mon gars si tu vois sa c'est que ta merdé quelque part")
+console.log("euh mon gars si tu vois sa c'est que ta merdé quelque part")
+console.log("euh mon gars si tu vois sa c'est que ta merdé quelque part")

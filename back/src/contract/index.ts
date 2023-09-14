@@ -8,8 +8,13 @@ export class handledError {
     }
 }
 
-export type Id = {
+export type FlightList = {
+    currency: string;
+}
+
+export type FlightBooking = {
     id: string;
+    currency: string;
 }
 
 export type Date = {

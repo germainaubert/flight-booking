@@ -1,25 +1,26 @@
-import express, { Express, Response, Request } from 'express';
+import { convertCurrency } from '../services/convertor';
+import { handledError, FlightList, FlightBooking, Date } from '../contract';
+import { getFlightList } from '../services/flights';
+import express, { Express, Response, Request } from 'express'
 import fs from 'fs'
-import { handledError, Id, Date } from '../contract';
 import { Flight, Booking } from '../../../contract'
 
-export const flights: Express = express()
+export const flights: Express = express();
 
-flights.get('/', (req: Request, res: Response) => {
-  const json: string = fs.readFileSync('./data/flights.json', 'utf-8');
-  const flights: Flight[] = JSON.parse(json);
-  res.json(flights)
+flights.get('/', (req: Request<unknown, unknown, unknown, FlightList>, res: Response) => {
+	const test = getFlightList(req.query.currency);
+	res.json(test);
 })
 
-flights.get('/bookingId', (req: Request<unknown, unknown, unknown, Id>, res: Response) => {
-  const bookingId: string = req.query.id
+flights.get('/bookingId', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
+  const bookingId = req.query.id;
 
   let json: string = fs.readFileSync('./data/booking.json', 'utf-8');
-  const Bookings: Booking[] = JSON.parse(json);
+  const bookings: Booking[] = JSON.parse(json);
 
   let id: string | null = null
 
-  Bookings.forEach((booking) => {
+  bookings.forEach((booking) => {
     if (booking.id === bookingId) {
       id = booking.flightId
     }
@@ -33,6 +34,7 @@ flights.get('/bookingId', (req: Request<unknown, unknown, unknown, Id>, res: Res
 
   flights.forEach((flight: any) => {
     if (flight.id === id) {
+			flight.price = convertCurrency(req.query.currency, flight.price);
       result = flight
     }
   })
@@ -42,7 +44,7 @@ flights.get('/bookingId', (req: Request<unknown, unknown, unknown, Id>, res: Res
 })
 
 flights.get('/date', (req: Request<unknown, unknown, unknown, Date>, res: Response) => {
-  const date: string = req.query.date
+  const date: string = req.query.date;
   const json: string = fs.readFileSync('./data/flights.json', 'utf-8');
   const jsonData: Flight[] = JSON.parse(json);
   const flights: Flight[] = []

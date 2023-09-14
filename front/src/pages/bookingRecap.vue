@@ -20,7 +20,7 @@ const getBooking = async () => {
 };
 
 const getFlightByBookingId = async () => {
-  const response = await fetch('http://localhost:3000/flights/bookingId/?id=' + bookingId);
+  const response = await fetch('http://localhost:3000/flights/bookingId/?id=' + bookingId +"&currency=" + localStorage.currency);
   return response.json();
 };
 </script>
