@@ -7,7 +7,6 @@ import { ROUTE, NO_VEGE_ROUTE } from '../const';
 import Header from '../component/Header.vue';
 onMounted(async () => {
   flights.value = await getFlights();
-  currencies.value = await getCurrencies();
   console.log(flights)
   menuVege.value = flights.value.map((flight) => ({ id: flight.id, vege: false }));
 });
@@ -22,19 +21,9 @@ const getFlights = async () => {
   
 };
 
-const getCurrencies = async () => {
-    try {
-        const res = await fetch('http://localhost:3000/conversion');
-        return res.json();
-    } catch(e) {
-        console.log(e);
-    }
-} 
-
 type menuVege = { id: string; vege: boolean };
 const router = useRouter();
 const flights = ref<Flight[]>([]);
-const currencies = ref<string[]>([]);
 const menuVege = ref<menuVege[]>([]);
 
 const onClick = (flight: Flight) => {

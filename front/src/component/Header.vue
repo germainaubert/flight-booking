@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref, watch } from 'vue';
 
 const emits = defineEmits(["searchBooking", "getFlightsByDate"]);
 
+const currencies = ref<string[]>([]);
 const date = ref();
+const currentCurrency = ref('EUR');
 const bookingSearch = ref();
 
 const searchBooking = () => {
@@ -14,6 +16,22 @@ const getFlightsByDate = () => {
   console.log(date.value);
   emits("getFlightsByDate", date.value);
 };
+
+const getCurrencies = async () => {
+    try {
+        const res = await fetch('http://localhost:3000/conversion');
+        return res.json();
+    } catch(e) {
+        console.log(e);
+    }
+}
+watch(currentCurrency, (newCurrency, oldCurrency) => {
+    localStorage.currency = newCurrency;
+})
+
+onMounted(async () => {
+  currencies.value = await getCurrencies();
+})
 </script>
 
 <template>
@@ -40,5 +58,9 @@ const getFlightsByDate = () => {
         <input type="date" v-model="date" @change="getFlightsByDate" class="block rounded-md border  border-black p-2 text-gray-900 shadow-sm" />
       </div>
     </div>
+    {{ currentCurrency }}
+    <select name="currency" v-model="currentCurrency">
+        <option v-for="currency of currencies" :value="currency">{{ currency }}</option>
+    </select>
   </header>
 </template>

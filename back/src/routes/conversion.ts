@@ -4,7 +4,7 @@ import fs from 'fs';
 export const conversion = express();
 
 conversion.get('/', (req, res) => {
-    const currencies = new Array();
+    const currencies = new Array("EUR");
     fs.readFile('./data/conversions.json', 'utf8', (err, data) => {
         if (err) {
           console.error(err);
