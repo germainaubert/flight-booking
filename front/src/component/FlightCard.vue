@@ -14,7 +14,6 @@ const flight = defineProps({
   },
 });
 const flightRef = ref<Flight>(flight.flight);
-console.log(flightRef.value);
 const redirectBooking = (flight: Flight) => {
   router.push({ path: "booking", query: { ...flight } });
 };

@@ -41,7 +41,6 @@ const flights = defineProps({
     required: true,
   },
 });
-console.log(flights.flights);
 </script>
 
 <template>
