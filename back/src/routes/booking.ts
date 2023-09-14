@@ -5,7 +5,6 @@ import fs from 'fs'
 export const booking = express()
 
 booking.get('/id', (req, res) => {
-  console.log('hello')
 
   const id = req.query.id
   let result = null
