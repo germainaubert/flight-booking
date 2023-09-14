@@ -23,23 +23,32 @@ const redirectBooking = (flight: Flight) => {
 <template>
   <div
     v-if="flightRef"
-    class="border-2 border-gray-200 rounded-lg shadow-lg overflow-hidden"
+      
   >
-    <div class="grid grid-cols-5">
+    <div class="grid grid-cols-5 border-2 border-gray-300 rounded-md shadow-md overflow-hidden">
       <div
         class="col-span-1 bg-gradient-to-r from-red-800 to-red-500 opacity-90 blur-xs"
-      ></div>
+      >
+        <div class="flex flex-col justify-between items-center space-y-4 p-16 h-full">
+          <div class="text-white font-semibold self-start">
+            {{ flightRef?.route[0] }}
+          </div>
+          <div class="flex flex-col items-center text-3xl text-white space-y-2">
+            -
+          </div>
+          <div class="text-white font-semibold self-end">
+            {{ flightRef?.route[flightRef?.route.length - 1] }}
+          </div>
+        </div>
+    </div>
       <div
         class="col-span-4 p-2"
       >
         <div>
           <p class="text-sm text-gray-600 flex items-center justify-between">
             <div class="bg-gradient-to-r from-orange-500 to-yellow-500 text-white inline-block rounded-full px-3 py-1 text-sm font-semibold mr-2">
-              Vol n°{{ flightRef.id }}
+              Fly n°{{ flightRef.id }}
             </div>  
-            <div class="text-lg font-semibold text-gray-800">
-             {{ flightRef?.route?.[0] }} - {{ flightRef?.route?.[flightRef.route.length - 1] }}
-          </div>
           </p>
           
           <p class="text-gray-700 text-base" v-if="flightRef?.route?.length >= 3">
