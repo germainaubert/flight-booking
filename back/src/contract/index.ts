@@ -12,11 +12,6 @@ export type FlightList = {
     currency: string;
 }
 
-export type FlightBooking = {
-    id: string;
-    currency: string;
-}
-
 export type Date = {
     date: string;
 }

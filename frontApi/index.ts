@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import { front } from './src/front';
 import { handledError } from '../contract'
-
 
 const app = express()
 const port = 3000
@@ -10,11 +10,7 @@ const cors = require('cors')
 app.use(cors());
 app.use(bodyParser.json())
 
-
-//ROUTE TEST
-app.use('/test', (req, res, next) => {
-    res.send('TEST INTERNAL API OK')
-})
+app.use('/', front)
 
 //MIDDLEWARE GESTION ERREUR
 app.use((err: any, req: any, res: any, next: any) => {

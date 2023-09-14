@@ -4,7 +4,6 @@ import { handledError } from '../contract'
 import { getBookingById } from './service/booking.services'
 import { getAllFlights, getFlightsByBookingId, getFlightsById } from './service/flights.services'
 
-
 const app = express()
 const port = 3004
 const cors = require('cors')
