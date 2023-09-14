@@ -4,7 +4,7 @@ import { flights } from './src/routes/flights'
 import { conversion } from './src/routes/conversion'
 import { fetchConversionData } from './src/services/convertor'
 import bodyParser from 'body-parser'
-import { handledError } from './src/contract'
+import { handledError } from '../contract'
 
 const app = express()
 const port = 3000
