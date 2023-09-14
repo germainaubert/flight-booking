@@ -40,3 +40,13 @@ export type FlightBooking = {
 export type Date = {
     date: string;
 }
+
+export type SubtractSeat = {
+    idFlight: string;
+    seatToSubtract: number;
+}
+
+export type Conversion = {
+    currency: string
+    rate: number
+}
