@@ -1,5 +1,4 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import { booking } from './src/routes/booking'
 import { flights } from './src/routes/flights'
 import { conversion } from './src/routes/conversion'
@@ -10,7 +9,6 @@ const port = 3000
 const cors = require('cors')
 
 app.use(cors());
-app.use(bodyParser.json())
 app.use('/booking', booking)
 app.use('/flights', flights)
 app.use('/conversion', conversion)
