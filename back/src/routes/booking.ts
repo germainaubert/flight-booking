@@ -1,11 +1,11 @@
 import express from 'express'
 import { uuid } from 'uuidv4';
 import fs from 'fs'
+import { handledError } from '../contract';
 
 export const booking = express()
 
 booking.get('/id', (req, res) => {
-  console.log('hello')
 
   const id = req.query.id
   let result = null
@@ -19,6 +19,7 @@ booking.get('/id', (req, res) => {
     }
   })
 
+  if (result == null) throw new handledError(404, "Booking id not found");
   res.json(result);
 })
 
