@@ -9,6 +9,7 @@ const cors = require('cors')
 
 app.use(cors());
 app.use('/booking', booking)
+console.log('booking', flights)
 app.use('/flights', flights)
 
 fetchConversionData(0);

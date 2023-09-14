@@ -7,7 +7,6 @@ export const applyReduction = (flight: Flight, reduction: number, route: string)
 
   return flight.price;
 };
-
 export const concatenateArray = (array: string[]): string => {
-  return array.join('-');
+  console.log('concatenateArray', array);
 };
