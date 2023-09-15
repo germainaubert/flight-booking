@@ -9,11 +9,6 @@ const cors = require('cors')
 app.use(cors());
 app.use(bodyParser.json())
 
-//ROUTE TEST
-app.use('/test', (req, res, next) => {
-    res.send('TEST BACKEND ENGINE OK')
-})
-
 //MIDDLEWARE GESTION ERREUR
 app.use((err: any, req: any, res: any, next: any) => {
     const handledError: handledError = err

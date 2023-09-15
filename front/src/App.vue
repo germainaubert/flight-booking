@@ -8,9 +8,11 @@ const router = useRouter();
 const getFlights = async () => {
   try {
     const response = await fetch(
-      "http://localhost:3000/flights/?currency=" + localStorage.currency
+      "http://localhost:3000/flight/?currency=" + localStorage.currency
     );
-    console.log(response)
+    if(!response.ok) {
+        throw new Error("Unable to get the list of flights");
+    }
     return response.json();
   } catch (e) {
     console.log(e);

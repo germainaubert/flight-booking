@@ -12,7 +12,7 @@ export type Booking = {
     firstname: string;
     lastname: string;
     email: string;
-    flightId: string;
+    flightId: string; 
     vege: boolean
 }
 
