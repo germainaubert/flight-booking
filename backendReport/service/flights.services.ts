@@ -1,9 +1,9 @@
 import { Response, Request } from 'express';
-import { Flight } from "../../contract";
+import { Flight, FlightList } from "../../contract";
 import { databaseAccesUrl } from "../const"
 
-export const getAllFlights = async (req: Request, res: Response) => {
-    
+export const getAllFlights = async (req: Request<unknown, unknown, unknown, FlightList>, res: Response) => {
+    console.log("test");
     const response = await fetch('localhost:3002/flight/?currency=' + req.query.currency);
     const result: Flight[] = (await response.json()) as Flight[]
 
