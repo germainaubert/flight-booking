@@ -1,5 +1,6 @@
 import express, { Express, Response, Request } from 'express';
 import { getAllFlights, getFlightsByBookingId, getFlightsById } from '../service/flights.services';
+import { Currency } from '../../contract';
 
 
 export const flight: Express = express()
@@ -19,7 +20,7 @@ flight.get('/bookingId', async (req, res, next) => {
         next(error)
     }
 })
-flight.get('/', async (req, res, next) => {
+flight.get('/', async (req: Request<unknown, unknown, unknown, Currency>, res, next) => {
     try {
         await getAllFlights(req, res)
     } catch (error) {
