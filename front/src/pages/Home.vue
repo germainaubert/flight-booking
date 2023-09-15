@@ -22,9 +22,8 @@ const getFlightsByDate = () => {
 
 const getCurrencies = async () => {
   try {
-    const res = await fetch("http://localhost:3000/conversion");
-    console.log(res);
-    return res.json();
+    const res = await fetch("http://localhost:3000/currency/list");
+    return await res.json();
   } catch (e) {
     console.log(e);
   }
