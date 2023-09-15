@@ -8,7 +8,7 @@ const getConversionDataAsObject = async () => {
 
     if (!conversionResponse.ok) {
         const resJson = await conversionResponse.json()
-        return Promise.reject(new handledError(resJson.code, resJson.message));
+        throw new handledError(resJson.code, resJson.message)
     }
 
     const conversion: Conversion[] = (await conversionResponse.json()) as Conversion[]

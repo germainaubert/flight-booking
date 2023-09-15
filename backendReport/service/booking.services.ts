@@ -9,7 +9,7 @@ export const getBookingById = async (req: Request, res: Response) => {
 
   if (!bookingResponse.ok) {
     const resJson = await bookingResponse.json()
-    return Promise.reject(new handledError(resJson.code, resJson.message));
+    throw new handledError(resJson.code, resJson.message)
   }
   const booking: Booking = (await bookingResponse.json()) as Booking
 
