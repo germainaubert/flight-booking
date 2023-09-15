@@ -12,8 +12,6 @@ app.use(bodyParser.json())
 
 app.use('/booking', booking)
 
-
-
 //ROUTE TEST
 app.use('/test', (req, res, next) => {
     res.send('TEST BACKEND Engine OK')

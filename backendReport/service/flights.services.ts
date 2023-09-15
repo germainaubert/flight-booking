@@ -4,7 +4,7 @@ import { databaseAccesUrl } from "../../const"
 import { convertFlightCurrency } from './conversion.services';
 
 export const getAllFlights = async (req: Request<unknown, unknown, unknown, Currency>, res: Response) => {
-
+    console.log('azeazeazea')
     const response = await fetch(databaseAccesUrl + '/flight/?' + req.query.currency);
     const result: Flight[] = (await response.json()) as Flight[]
     if (typeof req.query.currency == 'string')

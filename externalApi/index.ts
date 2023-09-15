@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import { handledError } from '../contract'
-
+import { externCall } from './route/externCall.route'
 
 const app = express()
 const port = 3001
@@ -11,8 +11,18 @@ app.use(cors());
 app.use(bodyParser.json())
 
 //MIDDLEWARE GESTION DES AUTHORISATIONS
-app.use((req, res, next) => {
-    console.log('auth dans header =>', req.headers)
+app.use('/externCall',
+    (req, res, next) => {
+        if (req.headers['access-token'] != "0F549EZR9Z04OTG")
+            throw new handledError(401, "Veuillez renseignez votre access token")
+        next()
+    },
+    externCall
+)
+
+app.use('/internCall', (req, res, next) => {
+    if (req.headers['access-token'] != "VERS24FLKJ76HY5GT4R")
+        throw new handledError(401, "???")
     next()
 })
 
