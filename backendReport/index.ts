@@ -23,7 +23,6 @@ app.use('/test', (req, res, next) => {
 
 //MIDDLEWARE GESTION ERREUR
 app.use((err: any, req: any, res: any, next: any) => {
-    console.log('passe ici')
     const handledError: handledError = err
     res.status(handledError.code).send({ code: handledError.code, message: handledError.message })
 })
