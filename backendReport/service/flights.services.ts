@@ -3,7 +3,8 @@ import { Flight } from "../../contract";
 import { databaseAccesUrl } from "../const"
 
 export const getAllFlights = async (req: Request, res: Response) => {
-    const response = await fetch(databaseAccesUrl + '/flight')
+    
+    const response = await fetch('localhost:3002/flight/?currency=' + req.query.currency);
     const result: Flight[] = (await response.json()) as Flight[]
 
     res.json(result)
