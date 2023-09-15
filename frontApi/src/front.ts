@@ -9,6 +9,7 @@ const bookingEngineUrl = 'localhost:3003'
 front.get('/flight', (req: Request<unknown, unknown, unknown, FlightList>, res: Response) => {
     (async () => {
         try {
+            console.log("test");
             const response = await fetch(flightEngineUrl + '/flight/?currency=' + req.query.currency);
             res.json(response);
         } catch(e) {
