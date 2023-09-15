@@ -28,5 +28,5 @@ app.use((err: any, req: any, res: any, next: any) => {
 })
 
 app.listen(port, () => {
-    console.log(`Internal API listening on port ${port}`)
+    console.log(`backendReport API listening on port ${port}`)
 })

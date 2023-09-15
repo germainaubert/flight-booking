@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 import { Booking, Conversion, handledError } from "../../contract";
-import { databaseAccesUrl } from "../const"
+import { databaseAccesUrl } from "../../const"
 
 export const getBookingById = async (req: Request, res: Response) => {
   const id = req.query.id

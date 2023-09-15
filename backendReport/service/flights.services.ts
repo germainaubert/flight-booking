@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 import { Booking, Flight } from "../../contract";
-import { databaseAccesUrl } from "../const"
+import { databaseAccesUrl } from "../../const"
 import { convertFlightCurrency } from './conversion.services';
 
 export const getAllFlights = async (req: Request, res: Response) => {

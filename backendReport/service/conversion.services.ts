@@ -1,5 +1,5 @@
 import { Conversion, Flight, handledError } from "../../contract";
-import { databaseAccesUrl } from "../const";
+import { databaseAccesUrl } from "../../const";
 
 const getConversionDataAsObject = async () => {
     let conversionDataAsObject: any = {}
@@ -27,13 +27,17 @@ export const convertFlightCurrency = async (flight: Flight | Flight[], currency:
 
     if (Array.isArray(flight)) {
         flight.forEach((flightElem: Flight) => {
-            flightElem.convertedPrice = {
-                [currency]: conversion[currency] * flightElem.price
+            if (typeof conversion[currency] == 'number') {
+                flightElem.convertedPrice = {
+                    [currency]: conversion[currency] * flightElem.price
+                }
             }
         })
     } else {
-        flight.convertedPrice = {
-            [currency]: conversion[currency] * flight.price
+        if (typeof conversion[currency] == 'number') {
+            flight.convertedPrice = {
+                [currency]: conversion[currency] * flight.price
+            }
         }
     }
 

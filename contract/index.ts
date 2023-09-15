@@ -16,7 +16,9 @@ export type Booking = {
     lastname: string;
     email: string;
     flightId: string;
-    vege: boolean
+    vege: boolean;
+    price: number;
+    currency: string;
 }
 
 type airport = "CDG" | "JFK" | "DTW"
