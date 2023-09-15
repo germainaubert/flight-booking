@@ -12,8 +12,9 @@ export const postBooking = async (req: Request, res: Response) => {
   const flightResponseData: Flight = (await flightResponse.json()) as Flight
 
   let bookingPrice = flightResponseData.price;
-  if (flightResponseData.convertedPrice)
-    bookingPrice = flightResponseData.convertedPrice[currency]
+  /* if (flightResponseData.convertedPrice)
+     bookingPrice = flightResponseData.convertedPrice[currency]
+ */
 
   let booking: Booking = {
     id,

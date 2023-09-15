@@ -6,9 +6,9 @@ export type Flight = {
     seats: number;
     remainingSeats: number;
     menuVege: boolean;
-    convertedPrice: {
+    /*convertedPrice: {
         [key: string]: number
-    }
+    }*/
 }
 export type Booking = {
     id?: string;

@@ -25,16 +25,18 @@ export const convertFlightCurrency = async (flight: Flight | Flight[], currency:
     if (Array.isArray(flight)) {
         flight.forEach((flightElem: Flight) => {
             if (typeof conversion[currency] == 'number') {
-                flightElem.convertedPrice = {
-                    [currency]: conversion[currency] * flightElem.price
-                }
+                flightElem.price *= conversion[currency]
+                /* flightElem.convertedPrice = {
+                     [currency]: conversion[currency] * flightElem.price
+                 }*/
             }
         })
     } else {
         if (typeof conversion[currency] == 'number') {
-            flight.convertedPrice = {
-                [currency]: conversion[currency] * flight.price
-            }
+            flight.price *= conversion[currency]
+            /* flight.convertedPrice = {
+                 [currency]: conversion[currency] * flight.price
+             }*/
         }
     }
     return flight
