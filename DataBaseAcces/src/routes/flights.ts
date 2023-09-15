@@ -25,7 +25,7 @@ flights.get('/id', (req: Request<unknown, unknown, unknown, FlightBooking>, res:
     }
   })
 
-  if (result == null) throw new handledError(404, "Booking id not found");
+  if (result == null) throw new handledError(404, "Flight id not found");
   res.json(result);
 })
 
