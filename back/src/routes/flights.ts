@@ -1,14 +1,14 @@
 import { convertCurrency } from '../services/convertor';
-import { handledError, FlightList, FlightBooking, Date } from '../contract';
-import { getFlightList } from '../services/flights';
+import { handledError, Currency, FlightBooking, Date } from '../contract';
+import { getCurrency } from '../services/flights';
 import express, { Express, Response, Request } from 'express'
 import fs from 'fs'
 import { Flight, Booking } from '../../../contract'
 
 export const flights: Express = express();
 
-flights.get('/', (req: Request<unknown, unknown, unknown, FlightList>, res: Response) => {
-	const test = getFlightList(req.query.currency);
+flights.get('/', (req: Request<unknown, unknown, unknown, Currency>, res: Response) => {
+	const test = getCurrency(req.query.currency);
 	res.json(test);
 })
 
