@@ -39,6 +39,18 @@ export const postBooking = async (req: Request, res: Response) => {
     body: JSON.stringify(booking)
   })
 
+
+  const putRemainingSeatResponse = await fetch(databaseAccesUrl + '/flight/remainingSeats', {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      idFlight: flightId,
+      seatToSubtract: 1,
+    })
+  })
+
   if (!postBookingResponse.ok) {
     const resJson = await postBookingResponse.json()
     throw new handledError(resJson.code, resJson.message)
