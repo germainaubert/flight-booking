@@ -6,14 +6,19 @@ export type Flight = {
     seats: number;
     remainingSeats: number;
     menuVege: boolean;
+    convertedPrice: {
+        [key: string]: number
+    }
 }
 export type Booking = {
     id?: string;
     firstname: string;
     lastname: string;
     email: string;
-    flightId: string; 
-    vege: boolean
+    flightId: string;
+    vege: boolean;
+    price: number;
+    currency: string;
 }
 
 type airport = "CDG" | "JFK" | "DTW"
@@ -28,7 +33,7 @@ export class handledError {
     }
 }
 
-export type FlightList = {
+export type Currency = {
     currency: string;
 }
 

@@ -13,7 +13,8 @@ const getFlights = async () => {
     if(!response.ok) {
         throw new Error("Unable to get the list of flights");
     }
-    return response.json();
+    const json = await response.json();
+    return json;
   } catch (e) {
     console.log(e);
   }
@@ -37,8 +38,6 @@ const searchBooking = (bookingSearch: string) => {
 };
 
 onMounted(async () => {
-  console.log("mounted");
-  console.log(flights.value)
   flights.value = await getFlights();
 });
 onMounted(() => {

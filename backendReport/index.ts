@@ -24,9 +24,9 @@ app.use('/test', (req, res, next) => {
 //MIDDLEWARE GESTION ERREUR
 app.use((err: any, req: any, res: any, next: any) => {
     const handledError: handledError = err
-    res.status(handledError.code).send(handledError.message)
+    res.status(handledError.code).send({ code: handledError.code, message: handledError.message })
 })
 
 app.listen(port, () => {
-    console.log(`Internal API listening on port ${port}`)
+    console.log(`backendReport API listening on port ${port}`)
 })

@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import { handledError } from '../contract'
+import { postBooking } from './services/booking.services'
 
 const app = express()
 const port = 3003
@@ -9,6 +10,15 @@ const cors = require('cors')
 app.use(cors());
 app.use(bodyParser.json())
 
+app.post('/booking', postBooking)
+
+
+
+//ROUTE TEST
+app.use('/test', (req, res, next) => {
+    res.send('TEST BACKEND Engine OK')
+})
+
 //MIDDLEWARE GESTION ERREUR
 app.use((err: any, req: any, res: any, next: any) => {
     const handledError: handledError = err
@@ -16,5 +26,5 @@ app.use((err: any, req: any, res: any, next: any) => {
 })
 
 app.listen(port, () => {
-    console.log(`Internal API listening on port ${port}`)
+    console.log(`backendEngine API listening on port ${port}`)
 })

@@ -4,7 +4,7 @@ import { Conversion, Currency, handledError } from '../../../contract'
 
 export const conversion: Express = express();
 
-conversion.get('/list', (req: Request, res: Response) => {
+conversion.get('/', (req: Request, res: Response) => {
     let json: string = fs.readFileSync('./data/conversions.json', 'utf-8');
     let conversions: Conversion[] = JSON.parse(json);
 
