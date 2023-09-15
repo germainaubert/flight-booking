@@ -22,6 +22,22 @@ front.get('/booking', (req: Request<unknown, unknown, unknown, FlightBooking>, r
         const currency = req.query.currency;
         const bookingId = req.query.id;
         const response = await fetch(bookingEngineUrl + '/booking/?currency=' + currency + '&id=' + bookingId);
-        res.json(response);
+        res.json(await response.json());
     })();
 });
+
+front.get('/booking', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
+    (async () => {
+        const currency = req.query.currency;
+        const bookingId = req.query.id;
+        const response = await fetch(bookingEngineUrl + '/booking/?currency=' + currency + '&id=' + bookingId);
+        res.json(await response.json());
+    })();
+});
+
+front.get('/currency/list', (req: Request, res: Response) => {
+    (async () => {
+        const response = await fetch(flightEngineUrl + '/currency/list');
+        res.json(await response.json()) 
+    })();
+})
