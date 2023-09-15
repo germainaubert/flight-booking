@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import { handledError } from '../contract'
 import { booking } from './route/booking.route'
 import { flight } from './route/flight.route'
+import { currency } from './route/currency.route'
 
 const app = express()
 const port = 3004
@@ -13,6 +14,7 @@ app.use(bodyParser.json())
 
 app.use('/booking', booking)
 app.use('/flight', flight)
+app.use('/currency', currency)
 
 //ROUTE TEST
 app.use('/test', (req, res, next) => {

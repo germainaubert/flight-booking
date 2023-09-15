@@ -22,6 +22,6 @@ app.use((err: any, req: any, res: any, next: any) => {//middleware de gestion d'
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Database Access API listening on port ${port}`)
 })
 
