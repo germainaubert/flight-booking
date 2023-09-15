@@ -12,6 +12,11 @@ app.use(bodyParser.json())
 
 app.use('/', front)
 
+//ROUTE HEALTH
+app.use('/health', (req, res, next) => {
+    res.send('Front api OK')
+})
+
 //MIDDLEWARE GESTION ERREUR
 app.use((err: any, req: any, res: any, next: any) => {
     const handledError: handledError = err

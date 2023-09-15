@@ -16,6 +16,11 @@ app.use('/booking', booking)
 app.use('/flight', flights)
 app.use('/conversion', conversion)
 
+//ROUTE HEALTH
+app.use('/health', (req, res, next) => {
+    res.send('Database api OK')
+})
+
 app.use((err: any, req: any, res: any, next: any) => {//middleware de gestion d'erreur
   const handledError: handledError = err
   res.status(handledError.code).json({ code: handledError.code, message: handledError.message })

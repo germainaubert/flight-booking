@@ -17,6 +17,8 @@ const form = ref<Booking>({
   email: "",
   flightId: flight?.id as string,
   vege: false,
+  price: 0,
+  currency: ""
 });
 
 const submit = async () => {

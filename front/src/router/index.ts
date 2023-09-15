@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import Form from '../pages/Form.vue'
-import bookingRecap from '../pages/bookingRecap.vue'
+import BookingRecap from '../pages/BookingRecap.vue'
+import Status from '../pages/Status.vue';
 
 const routes = [
   {
@@ -17,8 +18,13 @@ const routes = [
   {
     path: '/recap',
     name: 'recap',
-    component: bookingRecap
-  }
+    component: BookingRecap
+  },
+  {
+    path: '/status',
+    name: 'status',
+    component: Status
+  },
 ]
 
 const router = createRouter({

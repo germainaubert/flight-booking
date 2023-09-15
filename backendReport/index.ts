@@ -16,9 +16,9 @@ app.use('/booking', booking)
 app.use('/flight', flight)
 app.use('/currency', currency)
 
-//ROUTE TEST
-app.use('/test', (req, res, next) => {
-    res.send('TEST BACKEND REPORT OK')
+//ROUTE HEALTH
+app.use('/health', (req, res, next) => {
+    res.send('Backend report ok')
 })
 
 //MIDDLEWARE GESTION ERREUR

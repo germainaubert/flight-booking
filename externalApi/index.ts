@@ -26,9 +26,9 @@ app.use('/internCall', (req, res, next) => {
     next()
 })
 
-//ROUTE TEST
-app.use('/test', (req, res, next) => {
-    res.send('TEST EXTERNAL API OK')
+//ROUTE helth
+app.use('/health', (req, res, next) => {
+    res.send('External api ok')
 })
 
 //MIDDLEWARE GESTION ERREUR

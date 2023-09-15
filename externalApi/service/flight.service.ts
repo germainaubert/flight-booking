@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { backendReportUrl } from "../../const"
 import { Flight, handledError } from "../../contract";
 
-
 export const getAllFlight = async (req: Request, res: Response) => {
     const currency = req.query.currency
     const flightResponse = await fetch(backendReportUrl + '/flight/?currency=' + currency)

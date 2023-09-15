@@ -6,6 +6,7 @@ export type Flight = {
     seats: number;
     remainingSeats: number;
     menuVege: boolean;
+    company: string;
     /*convertedPrice: {
         [key: string]: number
     }*/
