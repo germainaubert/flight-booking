@@ -1,11 +1,26 @@
 import { Response, Request } from 'express';
-import { Booking } from "../../contract";
+import { Booking, Conversion, handledError } from "../../contract";
 import { databaseAccesUrl } from "../const"
 
 export const getBookingById = async (req: Request, res: Response) => {
   const id = req.query.id
-  const response = await fetch(databaseAccesUrl + '/booking/id/?id=' + id)
-  const result: Booking = (await response.json()) as Booking
+  const currency = req.query.currency
 
-  res.json(result)
+
+  const bookingResponse = await fetch(databaseAccesUrl + '/booking/id/?id=' + id)
+
+  if (!bookingResponse.ok) {
+    const resJson = await bookingResponse.json()
+    console.log(resJson)
+    return Promise.reject(new handledError(resJson.code, resJson.message));
+    throw new handledError(resJson.code, resJson.message)
+
+  }
+  const booking: Booking = (await bookingResponse.json()) as Booking
+
+  const conversionResponse = await fetch(databaseAccesUrl + '/conversion/')
+  const conversion: Conversion = (await conversionResponse.json()) as Conversion
+
+  console.log(conversion)
+  res.json('result')
 }
