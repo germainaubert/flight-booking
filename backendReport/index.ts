@@ -1,8 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import { handledError } from '../contract'
-import { getBookingById } from './service/booking.services'
-import { getAllFlights, getFlightsByBookingId, getFlightsById } from './service/flights.services'
+import { booking } from './route/booking.route'
+import { flight } from './route/flight.route'
 
 const app = express()
 const port = 3004
@@ -11,10 +11,8 @@ const cors = require('cors')
 app.use(cors());
 app.use(bodyParser.json())
 
-app.get('/booking/id', getBookingById)
-app.get('/flight/id', getFlightsById)
-app.get('/flight/bookingId', getFlightsByBookingId)
-app.get('/flight', getAllFlights)
+app.use('/booking', booking)
+app.use('/flight', flight)
 
 //ROUTE TEST
 app.use('/test', (req, res, next) => {

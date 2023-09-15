@@ -26,6 +26,11 @@ export const postBooking = async (req: Request, res: Response) => {
     price: bookingPrice
   }
 
+  if (flightResponseData.remainingSeats === 0) throw new handledError(404, "Flight is complete");
+  if (!flightResponseData.menuVege && booking.vege) throw new handledError(404, "Vegetarian menu not available on this flight");
+
+
+
   const postBookingResponse = await fetch(databaseAccesUrl + '/booking', {
     method: 'POST',
     headers: {
@@ -34,9 +39,21 @@ export const postBooking = async (req: Request, res: Response) => {
     body: JSON.stringify(booking)
   })
 
+
+  const putRemainingSeatResponse = await fetch(databaseAccesUrl + '/flight/remainingSeats', {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      idFlight: flightId,
+      seatToSubtract: 1,
+    })
+  })
+
   if (!postBookingResponse.ok) {
     const resJson = await postBookingResponse.json()
-    return Promise.reject(new handledError(resJson.code, resJson.message));
+    throw new handledError(resJson.code, resJson.message)
   }
 
   res.json({ id })
