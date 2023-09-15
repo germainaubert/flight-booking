@@ -1,3 +1,4 @@
+import { Response, Request } from 'express';
 import { Conversion, Flight, handledError } from "../../contract";
 import { databaseAccesUrl } from "../../const";
 
@@ -42,4 +43,22 @@ export const convertFlightCurrency = async (flight: Flight | Flight[], currency:
     }
 
     return flight
+}
+
+export const getCurrencyList = async (req: Request, res: Response) => {
+    let currencyList: string[] = []
+
+    const conversionResponse = await fetch(databaseAccesUrl + '/conversion/')
+    if (!conversionResponse.ok) {
+        const resJson = await conversionResponse.json()
+        throw new handledError(resJson.code, resJson.message)
+    }
+
+    const conversion: Conversion[] = (await conversionResponse.json()) as Conversion[]
+
+    conversion.forEach(element => {
+        currencyList.push(element.currency)
+    });
+
+    res.json(currencyList)
 }
