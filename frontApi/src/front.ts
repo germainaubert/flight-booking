@@ -1,16 +1,16 @@
 import express, { Express, Request, Response } from 'express';
-import { FlightBooking, FlightList, Booking } from '../../contract';
+import { FlightBooking, Currency, Booking } from '../../contract';
 
 export const front: Express = express();
 
-const flightEngineUrl = 'localhost:3004';
-const bookingEngineUrl = 'localhost:3003'
+const flightEngineUrl = 'http://localhost:3004';
+const bookingEngineUrl = 'http://localhost:3003'
 
-front.get('/flight', (req: Request<unknown, unknown, unknown, FlightList>, res: Response) => {
+front.get('/flight', (req: Request<unknown, unknown, unknown, Currency>, res: Response) => {
     (async () => {
         try {
             const response = await fetch(flightEngineUrl + '/flight/?currency=' + req.query.currency);
-            res.json(response);
+            res.json(await response.json());
         } catch (e) {
             res.status(500).json("front-api error: " + e.message);
         }
@@ -24,8 +24,4 @@ front.get('/booking', (req: Request<unknown, unknown, unknown, FlightBooking>, r
         const response = await fetch(bookingEngineUrl + '/booking/?currency=' + currency + '&id=' + bookingId);
         res.json(response);
     })();
-});
-
-front.post('/booking', (req: Request<unknown, unknown, Booking, unknown>, res: Response) => {
-    const booking: Booking = req.body;
 });

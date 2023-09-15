@@ -4,7 +4,7 @@ import { convertCurrency } from "./convertor";
 
 const filePath = './data/flights.json';
 
-export function getFlightList(currency: string) {
+export function getCurrency(currency: string) {
     const flightsJSON = readFile(filePath);
     if(flightsJSON) {
         for(const flight of flightsJSON) {

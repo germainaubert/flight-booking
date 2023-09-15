@@ -33,7 +33,7 @@ export class handledError {
     }
 }
 
-export type FlightList = {
+export type Currency = {
     currency: string;
 }
 

@@ -6,12 +6,10 @@ const getConversionDataAsObject = async () => {
     let conversionDataAsObject: any = {}
 
     const conversionResponse = await fetch(databaseAccesUrl + '/conversion/')
-
     if (!conversionResponse.ok) {
         const resJson = await conversionResponse.json()
         throw new handledError(resJson.code, resJson.message)
     }
-
     const conversion: Conversion[] = (await conversionResponse.json()) as Conversion[]
 
     conversion.forEach(element => {
@@ -20,11 +18,9 @@ const getConversionDataAsObject = async () => {
     return conversionDataAsObject
 }
 
-
 export const convertFlightCurrency = async (flight: Flight | Flight[], currency: string) => {
 
     const conversion = await getConversionDataAsObject()
-
 
     if (Array.isArray(flight)) {
         flight.forEach((flightElem: Flight) => {
@@ -41,7 +37,6 @@ export const convertFlightCurrency = async (flight: Flight | Flight[], currency:
             }
         }
     }
-
     return flight
 }
 

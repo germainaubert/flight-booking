@@ -1,13 +1,12 @@
 import { Response, Request } from 'express';
-import { Booking, Flight, handledError } from "../../contract";
+import { Booking, Currency, Flight, handledError } from "../../contract";
 import { databaseAccesUrl } from "../../const"
 import { convertFlightCurrency } from './conversion.services';
 
-export const getAllFlights = async (req: Request, res: Response) => {
+export const getAllFlights = async (req: Request<unknown, unknown, unknown, Currency>, res: Response) => {
 
-    const response = await fetch(databaseAccesUrl + '/flight');
+    const response = await fetch(databaseAccesUrl + '/flight/?' + req.query.currency);
     const result: Flight[] = (await response.json()) as Flight[]
-
     if (typeof req.query.currency == 'string')
         await convertFlightCurrency(result, req.query.currency as string)
 

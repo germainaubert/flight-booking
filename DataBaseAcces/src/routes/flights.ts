@@ -1,10 +1,10 @@
 import express, { Express, Response, Request } from 'express'
 import fs from 'fs'
-import { Flight, handledError, FlightList, FlightBooking, Date, SubtractSeat } from '../../../contract'
+import { Flight, handledError, Currency, FlightBooking, Date, SubtractSeat } from '../../../contract'
 
 export const flights: Express = express();
 
-flights.get('/', (req: Request<unknown, unknown, unknown, FlightList>, res: Response) => {
+flights.get('/', (req: Request<unknown, unknown, unknown, Currency>, res: Response) => {
   let json: string = fs.readFileSync('./data/flights.json', 'utf-8');
   let flights: Flight[] = JSON.parse(json);
 
