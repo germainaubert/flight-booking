@@ -57,6 +57,7 @@ const getCurrencies = async () => {
     console.log(e);
   }
 };
+  
 watch(currentCurrency, (newCurrency, oldCurrency) => {
   localStorage.currency = newCurrency;
 });
@@ -68,7 +69,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <nav class="flex justify-end items-center space-x-2 px-2 pt-2">
+  <nav class="flex justify-end items-center space-x-2 px-2 py-6">
     <!-- Label and Input -->
     <div class="flex items-left">
       <input
