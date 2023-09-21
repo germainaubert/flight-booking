@@ -1,5 +1,5 @@
 import express, { Express, Response, Request } from 'express';
-import { getAllFlights, getFlightsByBookingId, getFlightsById } from '../service/flights.services';
+import { getAllFlights, getFlightsByBookingId, getFlightsById, getFlightsByDate } from '../service/flights.services';
 import { Currency } from '../../contract';
 
 
@@ -23,6 +23,14 @@ flight.get('/bookingId', async (req, res, next) => {
 flight.get('/', async (req: Request<unknown, unknown, unknown, Currency>, res, next) => {
     try {
         await getAllFlights(req, res)
+    } catch (error) {
+        next(error)
+    }
+})
+
+flight.get('/date', async (req, res, next) => {
+    try {
+        await getFlightsByDate(req, res)
     } catch (error) {
         next(error)
     }

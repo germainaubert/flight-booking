@@ -60,3 +60,12 @@ front.get('/flights/bookingId', (req: Request<unknown, unknown, unknown, FlightB
     })();
 }
 );
+
+front.get('/flights/date', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
+    (async () => {
+        const date = req.query.date;
+        const response = await fetch(flightEngineUrl + '/flight/date/?date=' + date);
+        res.json(await response.json());
+    })();
+}
+);

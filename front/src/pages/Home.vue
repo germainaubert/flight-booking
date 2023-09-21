@@ -10,7 +10,7 @@ const router = useRouter();
 const flights = ref<Flight[]>([]);
 const currencies = ref<string[]>([]);
 const date = ref();
-const currentCurrency = ref('EUR');
+const currentCurrency = ref('JPY');
 const bookingSearch = ref();
 
 const searchBooking = async () => {
@@ -25,8 +25,15 @@ const searchBooking = async () => {
   }
 };
 
-const getFlightsByDate = () => {
-  console.log(date.value);
+const getFlightsByDate = async () => {
+  try {
+    const dateValue = date.value;
+    const response = await fetch('http://localhost:3000/flights/date/?date=' + dateValue);
+    const json = await response.json();
+    flights.value = json;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const getFlights = async () => {
