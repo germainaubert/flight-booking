@@ -5,11 +5,10 @@ import { getFlightsForInternal } from '../service/internalFlight.service';
 export const internCall: Express = express()
 
 internCall.get('/flight', async (req, res, next) => {
-    try {
-        await getFlightsForInternal(req, res);
-    } catch (error) {
-        next(error)
-    }
+    // try {
+    //     await getFlightsForInternal(req, res);
+    // } catch (error) {
+    //     next(error)
+    // }
+    res.send('intern API ok')
 })
-
-
