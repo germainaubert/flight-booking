@@ -1,71 +1,84 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-const frontApiStatus = ref();
-const externalApiStatus = ref();
-const dbApiStatus = ref();
-const backendEngineApiStatus = ref();
-const reportApiStatus = ref();
+const status = ref();
 
 onMounted(async () => {
+  const liveStatus = {
+    frontApiStatus: false,
+    externalApiStatus: false,
+    dbApiStatus: false,
+    backendEngineApiStatus: false,
+    reportApiStatus: false,
+  };
+
   try {
     await fetch('http://localhost:3000/health');
-    frontApiStatus.value = true;
+    liveStatus.frontApiStatus = true;
   } catch {
     console.log('front api is not available');
-    frontApiStatus.value = false;
   }
 
   try {
     await fetch('http://localhost:3001/health');
-    externalApiStatus.value = true;
+    liveStatus.externalApiStatus = true;
   } catch {
-    console.log('report api is not available');
-    externalApiStatus.value = false;
+    console.log('external api is not available');
   }
 
   try {
     await fetch('http://localhost:3002/health');
-    dbApiStatus.value = true;
+    liveStatus.dbApiStatus = true;
   } catch {
-    console.log('report api is not available');
-    dbApiStatus.value = false;
+    console.log('db is not available');
   }
 
   try {
     await fetch('http://localhost:3003/health');
-    backendEngineApiStatus.value = true;
+    liveStatus.backendEngineApiStatus = true;
   } catch {
-    console.log('report api is not available');
-    backendEngineApiStatus.value = false;
+    console.log('backend engine api is not available');
   }
 
   try {
     await fetch('http://localhost:3004/health');
-    reportApiStatus.value = true;
+    liveStatus.reportApiStatus = true;
   } catch {
     console.log('report api is not available');
-    reportApiStatus.value = false;
   }
+
+  status.value = liveStatus;
 });
 </script>
 
 <template>
   <div>
     <div>
-      <div>front api status: {{ frontApiStatus }}</div>
+      <div>
+        front api status:
+        <span v-if="status === undefined"> Loading...</span>
+        <span v-else> {{ status?.frontApiStatus }}</span>
+      </div>
     </div>
     <div>
-      <div>external api status: {{ externalApiStatus }}</div>
+      external api status:
+      <span v-if="status === undefined"> Loading...</span>
+      <span v-else> {{ status?.externalApiStatus }}</span>
     </div>
     <div>
-      <div>db api status: {{ dbApiStatus }}</div>
+      db api status:
+      <span v-if="status === undefined"> Loading...</span>
+      <span v-else> {{ status?.dbApiStatus }}</span>
     </div>
     <div>
-      <div>backend api status: {{ backendEngineApiStatus }}</div>
+      backend api status:
+      <span v-if="status === undefined"> Loading...</span>
+      <span v-else> {{ status?.backendEngineApiStatus }}</span>
     </div>
     <div>
-      <div>report api status: {{ reportApiStatus }}</div>
+      report api status:
+      <span v-if="status === undefined"> Loading...</span>
+      <span v-else> {{ status?.reportApiStatus }}</span>
     </div>
   </div>
 </template>
