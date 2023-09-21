@@ -4,7 +4,7 @@ import Header from './component/Header.vue';
 
 onMounted(() => {
   // EUR est la monnaie par défaut
-  localStorage.currency = 'EUR';
+  localStorage.currency = localStorage.currency || 'EUR';
 });
 </script>
 <template>

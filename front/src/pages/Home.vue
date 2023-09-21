@@ -10,9 +10,9 @@ const router = useRouter();
 const flights = ref<Flight[]>([]);
 const currencies = ref<string[]>([]);
 const date = ref();
-const currentCurrency = ref('JPY');
+const currentCurrency = ref(localStorage.currency || 'USD');
 const bookingSearch = ref();
-
+console.log(localStorage);
 const searchBooking = async () => {
   try {
     const response = await fetch('http://localhost:3000/booking/id/?id=' + bookingSearch.value);
@@ -57,7 +57,7 @@ const getCurrencies = async () => {
     console.log(e);
   }
 };
-  
+
 watch(currentCurrency, (newCurrency, oldCurrency) => {
   localStorage.currency = newCurrency;
 });
