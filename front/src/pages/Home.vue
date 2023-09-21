@@ -60,6 +60,8 @@ const getCurrencies = async () => {
 
 watch(currentCurrency, (newCurrency, oldCurrency) => {
   localStorage.currency = newCurrency;
+  // refresh page
+  location.reload();
 });
 
 onMounted(async () => {
