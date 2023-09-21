@@ -10,7 +10,6 @@ export const postBooking = async (req: Request, res: Response) => {
 
   const flightResponse = await fetch(backendReportUrl + '/flight/id/?id=' + flightId + '&currency=' + currency)
   const flightResponseData: Flight = (await flightResponse.json()) as Flight
-
   let bookingPrice = flightResponseData.price;
   /* if (flightResponseData.convertedPrice)
      bookingPrice = flightResponseData.convertedPrice[currency]
@@ -29,7 +28,6 @@ export const postBooking = async (req: Request, res: Response) => {
 
   if (flightResponseData.remainingSeats === 0) throw new handledError(404, "Flight is complete");
   if (!flightResponseData.menuVege && booking.vege) throw new handledError(404, "Vegetarian menu not available on this flight");
-
 
 
   const postBookingResponse = await fetch(databaseAccesUrl + '/booking', {
@@ -58,4 +56,12 @@ export const postBooking = async (req: Request, res: Response) => {
   }
 
   res.json({ id })
+}
+
+export const getBookingById = async (req: Request, res: Response) => {
+  const id = req.query.id
+  const getBookingByIdResponse = await fetch(databaseAccesUrl + '/booking/id/?id=' + id)
+  const getBookingByIdResponseData: Booking = (await getBookingByIdResponse.json()) as Booking
+  if (getBookingByIdResponseData == null) throw new handledError(404, "Booking id not found");
+  res.json(getBookingByIdResponseData);
 }

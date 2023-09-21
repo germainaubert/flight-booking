@@ -11,6 +11,8 @@ const booking = ref<Booking>();
 onMounted(async () => {
   booking.value = await getBooking();
   flight.value = await getFlightByBookingId();
+  console.log(flight.value);
+  console.log(booking.value);
 });
 
 const getBooking = async () => {

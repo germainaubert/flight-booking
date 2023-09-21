@@ -17,7 +17,7 @@ flights.get('/id', (req: Request<unknown, unknown, unknown, FlightBooking>, res:
 
   let json: string = fs.readFileSync('./data/flights.json', 'utf-8');
   let flights: Flight[] = JSON.parse(json);
-
+  console.log('flights.ts: flights.get: flights: ', flights)
   flights.forEach((flight) => {
     if (flight.id === id) {
       result = flight

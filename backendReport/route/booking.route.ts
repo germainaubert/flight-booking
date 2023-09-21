@@ -1,4 +1,4 @@
-import express, { Express, Response, Request } from 'express';
+import express, { Express } from 'express';
 import { getBookingById } from '../service/booking.services';
 
 

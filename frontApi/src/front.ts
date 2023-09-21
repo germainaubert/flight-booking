@@ -26,11 +26,13 @@ front.get('/booking', (req: Request<unknown, unknown, unknown, FlightBooking>, r
     })();
 });
 
-front.get('/booking', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
+front.post('/booking', (req: Request<unknown, unknown, Booking>, res: Response) => {
     (async () => {
-        const currency = req.query.currency;
-        const bookingId = req.query.id;
-        const response = await fetch(bookingEngineUrl + '/booking/?currency=' + currency + '&id=' + bookingId);
+        const response = await fetch(bookingEngineUrl + '/booking', {
+            method: 'POST',
+            body: JSON.stringify(req.body),
+            headers: { 'Content-Type': 'application/json' }
+        });
         res.json(await response.json());
     })();
 });
@@ -41,3 +43,21 @@ front.get('/currency/list', (req: Request, res: Response) => {
         res.json(await response.json()) 
     })();
 })
+
+front.get('/booking/id', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
+    (async () => {
+        const id = req.query.id;
+        const response = await fetch(bookingEngineUrl + '/booking/id/?id=' + id);
+        res.json(await response.json());
+    })();
+});
+
+front.get('/flights/bookingId', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
+    (async () => {
+        console.log('front.ts: front.get: req.query.id: ', req.query.id)    
+        const bookingId = req.query.id;
+        const response = await fetch(flightEngineUrl + '/flight/bookingId/?bookingId=' + bookingId);
+        res.json(await response.json());
+    })();
+}
+);
