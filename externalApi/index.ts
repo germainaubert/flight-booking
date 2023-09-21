@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { handledError } from '../contract'
 import { externCall } from './route/externCall.route'
+import { internCall } from './route/internCall.route'
 
 const app = express()
 const port = 3001
@@ -20,11 +21,14 @@ app.use('/externCall',
     externCall
 )
 
-app.use('/internCall', (req, res, next) => {
-    if (req.headers['access-token'] != "VERS24FLKJ76HY5GT4R")
-        throw new handledError(401, "???")
-    next()
-})
+app.use('/internCall',
+    (req, res, next) => {
+        if (req.headers['access-token'] != "VERS24FLKJ76HY5GT4R")
+            throw new handledError(401, "Veuillez renseignez votre access token")
+        next()
+    },
+    internCall
+)
 
 //ROUTE helth
 app.use('/health', (req, res, next) => {
