@@ -4,18 +4,36 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 import { Flight } from '../../../contract/index';
 import FlightCard from '../component/FlightCard.vue';
 import { onMounted, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
-const emits = defineEmits(['searchBooking', 'getFlightsByDate']);
-
+const router = useRouter();
 const flights = ref<Flight[]>([]);
 const currencies = ref<string[]>([]);
 const date = ref();
-const currentCurrency = ref('EUR');
+const currentCurrency = ref(localStorage.currency || 'USD');
 const bookingSearch = ref();
+console.log(localStorage);
+const searchBooking = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/booking/id/?id=' + bookingSearch.value);
+    console.log(response);
+    const json = await response.json();
+    console.log(json);
+    router.push({ name: 'recap', query: { id: json.id } });
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-const searchBooking = () => {
-  console.log(bookingSearch.value);
-  emits('searchBooking', bookingSearch.value);
+const getFlightsByDate = async () => {
+  try {
+    const dateValue = date.value;
+    const response = await fetch('http://localhost:3000/flights/date/?date=' + dateValue);
+    const json = await response.json();
+    flights.value = json;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const getFlights = async () => {
@@ -31,10 +49,6 @@ const getFlights = async () => {
   }
 };
 
-const getFlightsByDate = () => {
-  emits('getFlightsByDate', date.value);
-};
-
 const getCurrencies = async () => {
   try {
     const res = await fetch('http://localhost:3000/currency/list');
@@ -43,6 +57,7 @@ const getCurrencies = async () => {
     console.log(e);
   }
 };
+
 watch(currentCurrency, (newCurrency, oldCurrency) => {
   localStorage.currency = newCurrency;
 });
@@ -54,7 +69,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <nav class="flex justify-end items-center space-x-2 px-2 pt-2">
+  <nav class="flex justify-end items-center space-x-2 px-2 py-6">
     <!-- Label and Input -->
     <div class="flex items-left">
       <input

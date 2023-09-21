@@ -41,6 +41,7 @@ export type Currency = {
 export type FlightBooking = {
     id: string;
     currency: string;
+    date?: string;
 }
 
 export type Date = {

@@ -58,3 +58,13 @@ export const getFlightsByBookingId = async (req: Request, res: Response) => {
 
   res.json(result);
 };
+
+export const getFlightsByDate = async (req: Request, res: Response) => {
+  const date = req.query.date;
+  const response = await fetch(databaseAccesUrl + "/flight/date?date=" + date);
+  const result: Flight[] = (await response.json()) as Flight[];
+  if (typeof req.query.currency == "string")
+    await convertFlightCurrency(result, req.query.currency as string);
+
+  res.json(result);
+};

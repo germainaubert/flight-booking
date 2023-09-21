@@ -54,9 +54,17 @@ front.get('/booking/id', (req: Request<unknown, unknown, unknown, FlightBooking>
 
 front.get('/flights/bookingId', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
     (async () => {
-        console.log('front.ts: front.get: req.query.id: ', req.query.id)    
         const bookingId = req.query.id;
         const response = await fetch(flightEngineUrl + '/flight/bookingId/?bookingId=' + bookingId);
+        res.json(await response.json());
+    })();
+}
+);
+
+front.get('/flights/date', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
+    (async () => {
+        const date = req.query.date;
+        const response = await fetch(flightEngineUrl + '/flight/date/?date=' + date);
         res.json(await response.json());
     })();
 }
