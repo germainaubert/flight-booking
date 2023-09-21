@@ -1,28 +1,43 @@
 <script setup lang="ts">
-import "vue3-carousel/dist/carousel.css";
-import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
-import { Flight } from "../../../contract/index";
-import FlightCard from "../component/FlightCard.vue";
-import { onMounted, ref, watch } from "vue";
+import 'vue3-carousel/dist/carousel.css';
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
+import { Flight } from '../../../contract/index';
+import FlightCard from '../component/FlightCard.vue';
+import { onMounted, ref, watch } from 'vue';
 
-const emits = defineEmits(["searchBooking", "getFlightsByDate"]);
+const emits = defineEmits(['searchBooking', 'getFlightsByDate']);
 
+const flights = ref<Flight[]>([]);
 const currencies = ref<string[]>([]);
 const date = ref();
-const currentCurrency = ref("EUR");
+const currentCurrency = ref('EUR');
 const bookingSearch = ref();
 
 const searchBooking = () => {
-  emits("searchBooking", bookingSearch.value);
+  console.log(bookingSearch.value);
+  emits('searchBooking', bookingSearch.value);
+};
+
+const getFlights = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/flight/?currency=' + localStorage.currency);
+    if (!response.ok) {
+      throw new Error('Unable to get the list of flights');
+    }
+    const json = await response.json();
+    return json;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const getFlightsByDate = () => {
-  emits("getFlightsByDate", date.value);
+  emits('getFlightsByDate', date.value);
 };
 
 const getCurrencies = async () => {
   try {
-    const res = await fetch("http://localhost:3000/currency/list");
+    const res = await fetch('http://localhost:3000/currency/list');
     return await res.json();
   } catch (e) {
     console.log(e);
@@ -34,52 +49,46 @@ watch(currentCurrency, (newCurrency, oldCurrency) => {
 
 onMounted(async () => {
   currencies.value = await getCurrencies();
-});
-const flights = defineProps({
-  flights: {
-    type: Array as () => Flight[],
-    required: true,
-  },
+  flights.value = await getFlights();
 });
 </script>
 
 <template>
   <nav class="flex justify-end items-center space-x-2 px-2 pt-2">
-      <!-- Label and Input -->
-      <div class="flex items-left">
-        <input
-          type="text"
-          v-model="bookingSearch"
-          placeholder="Search your booking"
-          @keyup.enter="searchBooking"
-          class="w-full p-2 bg-white rounded-md border border-gray-300 shadow-sm"
-        />
-      </div>
+    <!-- Label and Input -->
+    <div class="flex items-left">
+      <input
+        type="text"
+        v-model="bookingSearch"
+        placeholder="Search your booking"
+        @keyup.enter="searchBooking"
+        class="w-full p-2 bg-white rounded-md border border-gray-300 shadow-sm"
+      />
+    </div>
 
-      <!-- Date Input -->
-      <div class="flex items-center ">
-        <input
-          type="date"
-          v-model="date"
-          @change="getFlightsByDate"
-          class="w-full p-2 bg-white rounded-md border border-gray-300 shadow-sm"
-        />
+    <!-- Date Input -->
+    <div class="flex items-center">
+      <input
+        type="date"
+        v-model="date"
+        @change="getFlightsByDate"
+        class="w-full p-2 bg-white rounded-md border border-gray-300 shadow-sm"
+      />
+    </div>
 
-      </div>
-
-      <!-- Currency Select -->
-      <div class="flex items-center">
-        <select
-          name="currency"
-          v-model="currentCurrency"
-          class="w-full p-2 bg-white rounded-md border border-gray-300 shadow-sm"
-        >
-          <option v-for="currency of currencies" :value="currency">
-            {{ currency }}
-          </option>
-        </select>
-      </div>
-    </nav>
+    <!-- Currency Select -->
+    <div class="flex items-center">
+      <select
+        name="currency"
+        v-model="currentCurrency"
+        class="w-full p-2 bg-white rounded-md border border-gray-300 shadow-sm"
+      >
+        <option v-for="currency of currencies" :value="currency">
+          {{ currency }}
+        </option>
+      </select>
+    </div>
+  </nav>
   <div class="flex flex-col">
     <div v-if="flights.length === 0">Loading...</div>
     <div v-else>
@@ -90,7 +99,7 @@ const flights = defineProps({
           [1024, 3],
         ]"
       >
-        <Slide v-for="flight in flights.flights" :key="flight.id">
+        <Slide v-for="flight in flights" :key="flight.id">
           <FlightCard :flight="flight" />
         </Slide>
         <template #addons>

@@ -40,7 +40,7 @@ front.post('/booking', (req: Request<unknown, unknown, Booking>, res: Response) 
 front.get('/currency/list', (req: Request, res: Response) => {
     (async () => {
         const response = await fetch(flightEngineUrl + '/currency/list');
-        res.json(await response.json()) 
+        res.json(await response.json())
     })();
 })
 

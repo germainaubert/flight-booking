@@ -56,3 +56,11 @@ export type Conversion = {
     currency: string
     rate: number
 }
+
+export type Status = {
+    frontApiStatus: boolean
+    reportApiStatus: boolean
+    dbApiStatus: boolean
+    externalApiStatus: boolean
+    backendEngineApiStatus: boolean
+}
