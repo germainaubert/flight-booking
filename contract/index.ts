@@ -22,7 +22,7 @@ export type Booking = {
     currency: string;
 }
 
-type airport = "CDG" | "JFK" | "DTW"
+type airport = "CDG" | "JFK" | "DTW" | "LAD"
 
 export class handledError {
     code: number;
