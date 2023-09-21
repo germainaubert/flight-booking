@@ -4,18 +4,29 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 import { Flight } from '../../../contract/index';
 import FlightCard from '../component/FlightCard.vue';
 import { onMounted, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
-const emits = defineEmits(['searchBooking', 'getFlightsByDate']);
-
+const router = useRouter();
 const flights = ref<Flight[]>([]);
 const currencies = ref<string[]>([]);
 const date = ref();
 const currentCurrency = ref('EUR');
 const bookingSearch = ref();
 
-const searchBooking = () => {
-  console.log(bookingSearch.value);
-  emits('searchBooking', bookingSearch.value);
+const searchBooking = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/booking/id/?id=' + bookingSearch.value);
+    console.log(response);
+    const json = await response.json();
+    console.log(json);
+    router.push({ name: 'recap', query: { id: json.id } });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const getFlightsByDate = () => {
+  console.log(date.value);
 };
 
 const getFlights = async () => {
@@ -29,10 +40,6 @@ const getFlights = async () => {
   } catch (e) {
     console.log(e);
   }
-};
-
-const getFlightsByDate = () => {
-  emits('getFlightsByDate', date.value);
 };
 
 const getCurrencies = async () => {
