@@ -1,8 +1,10 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import swaggerUi from 'swagger-ui-express'
+const swaggerFile = require('./swagger_output.json')
 import { handledError } from '../contract'
-import { externCall } from './route/externCall.route'
-import { internCall } from './route/internCall.route'
+import { externCall } from './src/route/externCall.route'
+import { internCall } from './src/route/internCall.route'
 
 const app = express()
 const port = 3001
@@ -10,6 +12,7 @@ const cors = require('cors')
 
 app.use(cors());
 app.use(bodyParser.json())
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 //MIDDLEWARE GESTION DES AUTHORISATIONS
 app.use('/externCall',
