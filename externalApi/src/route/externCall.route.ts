@@ -1,6 +1,7 @@
 import express, { Express, Response, Request } from 'express';
 import { getAllFlight, getflightByBookingId, getflightById } from '../service/flight.service';
 import { getBookingById, postBooking } from '../service/booking.service';
+import { Booking } from "../../../contract";
 
 export const externCall: Express = express()
 
@@ -37,6 +38,21 @@ externCall.get('/booking/id', async (req, res, next) => {
 })
 
 externCall.post('/booking', async (req, res, next) => {
+
+    /*  #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'Some description...',
+                schema: {
+                    firstname: 'Test1',
+                    lastname: 'Test2',
+                    email: 'test@gmail.com',
+                    flightId: '1',
+                    price: 100,
+                    currency: '',
+                    vege: false
+                }
+        } */
+
     try {
         await postBooking(req, res)
     } catch (error) {
