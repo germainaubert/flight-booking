@@ -8,7 +8,7 @@ const route = useRoute();
 const bookingId = route.query.id;
 const flight = ref<Flight>();
 const booking = ref<Booking>();
-const currency  = localStorage.currency;
+const currency = localStorage.currency;
 onMounted(async () => {
   booking.value = await getBooking();
   flight.value = await getFlightByBookingId();
@@ -52,20 +52,22 @@ const cancelBooking = async () => {
 
 <template>
   <div v-if="flight && booking">
-    <div
+    <div v-if="booking.status === 'confirmed'">
       class="mx-auto max-w-xl rounded-md shadow-md mt-16 border border-gray-300"
-    >
+      >
       <div class="flex flex-col space-y-2 p-2">
         <div class="flex flex-row justify-between items-center px-4 py-2">
-        <div class="text-xl font-bold">Your booking n°{{ booking.id }}</div>
-        <!-- badge with status -->
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-          {{ booking.status }}
-        </span>
-      </div>
+          <div class="text-xl font-bold">Your booking n°{{ booking.id }}</div>
+          <!-- badge with status -->
+          <span
+            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+          >
+            {{ booking.status }}
+          </span>
+        </div>
         <div class="border-b border-gray-300 px-4"></div>
         <!-- booking user infos -->
-    <div class="bg-white bg-opacity-30 px-2 rounded-lg pb-2">
+        <div class="bg-white bg-opacity-30 px-2 rounded-lg pb-2">
           <div class="text-xl font-bold">Your informations</div>
           <!-- avatar -->
           <div class="flex flex-row items-center space-x-2">
@@ -82,7 +84,8 @@ const cancelBooking = async () => {
               </div>
             </div>
           </div>
-        </div>   <!-- separator -->
+        </div>
+        <!-- separator -->
         <!-- separator -->
         <div class="border-b border-gray-300 pb-2"></div>
         <div class="grid grid-cols-2 gap-1 py-4">
@@ -137,37 +140,56 @@ const cancelBooking = async () => {
           <!-- price -->
           <dl class="gap-x-6 text-sm bg-gray-100 p-2 rounded-lg">
             <dt class="font-medium text-gray-900">Price</dt>
-            <dd class="mt-3 text-gray-500 text-xl"> {{ applyReduction(flight, 0.1, NO_VEGE_ROUTE) }} {{currency }}</dd>
+            <dd class="mt-3 text-gray-500 text-xl">
+              {{ applyReduction(flight, 0.1, NO_VEGE_ROUTE) }} {{ currency }}
+            </dd>
           </dl>
         </div>
-       
+
         <!-- back button -->
-          <div class="flex justify-between">
-            <button class="bg-white hover:bg-red-100 text-red-800 font-semibold py-1 px-4 border border-red-400 rounded shadow" @click="cancelBooking">
-              Cancel
+        <div class="flex justify-between">
+          <button
+            class="bg-white hover:bg-red-100 text-red-800 font-semibold py-1 px-4 border border-red-400 rounded shadow"
+            @click="cancelBooking"
+          >
+            Cancel
+          </button>
+          <router-link to="/">
+            <button
+              class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-4 border border-gray-400 rounded shadow"
+            >
+              Back
             </button>
-            <router-link to="/">
-              <button
-                class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-4 border border-gray-400 rounded shadow"
-              >
-                Back
-              </button>
-            </router-link>
+          </router-link>
         </div>
-        
       </div>
+    </div>
+
+    <div
+      v-if="booking.status === 'canceled'"
+      class="text-center text-xl bg-red-100 p-4 border border-red-400 rounded mt-16 mx-auto max-w-xl flex flex-col space-y-2"
+    >
+      <div class="text-xl font-bold">Your booking has been canceled</div>
+      Booking id: {{ bookingId ? bookingId : "undefined" }} has been canceled
+      <router-link to="/">
+        <button
+          class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-4 border border-gray-400 rounded shadow"
+        >
+          Back
+        </button>
+      </router-link>
     </div>
   </div>
   <div v-else class="text-center text-xl">
     <div>
-        Booking id: {{bookingId ? bookingId : 'undefined'}} does not exist
+      Booking id: {{ bookingId ? bookingId : "undefined" }} does not exist
     </div>
     <router-link to="/">
-              <button
-                class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-4 border border-gray-400 rounded shadow"
-              >
-                Back
-              </button>
+      <button
+        class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-4 border border-gray-400 rounded shadow"
+      >
+        Back
+      </button>
     </router-link>
   </div>
 </template>
