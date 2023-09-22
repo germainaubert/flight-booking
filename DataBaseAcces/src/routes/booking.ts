@@ -36,3 +36,27 @@ booking.post('/', (req: Request<unknown, unknown, Booking, unknown>, res: Respon
   res.send(JSON.stringify(reservation));
 })
 
+booking.put('/cancel', (req: Request<unknown, unknown, Booking, unknown>, res: Response) => {
+  const id: string = req.body.id as string
+  let result: Booking | null = null
+  let json: string = fs.readFileSync('./data/booking.json', 'utf-8');
+  
+  let bookings: Booking[] = JSON.parse(json);
+  
+  bookings.forEach((booking: Booking) => {
+    if (booking.id === id) {
+      booking.status = 'canceled'
+      result = booking
+    }
+  })
+
+  if (!result) throw new handledError(404, "Booking id not found");
+  try {
+    fs.writeFileSync('./data/booking.json', JSON.stringify(bookings));
+    res.status(200).json(result);
+  } catch (error : any) {
+    throw new handledError(500, error.message);
+  }
+})
+
+

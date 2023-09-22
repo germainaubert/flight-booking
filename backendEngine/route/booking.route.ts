@@ -1,5 +1,5 @@
 import express, { Express, Response, Request } from 'express';
-import { postBooking, getBookingById } from '../services/booking.services';
+import { postBooking, getBookingById, cancelBooking } from '../services/booking.services';
 
 
 export const booking: Express = express()
@@ -24,8 +24,9 @@ booking.get('/id', async (req, res, next) => {
 
 booking.put('/cancel', async (req, res, next) => {
     try {
-        await getBookingById(req, res)
         // todo cancel flight
+        console.log('booking.route.ts: booking.put: req.body: ', req.body)
+        await cancelBooking(req, res)
     } catch (error) {
         next(error)
     }
