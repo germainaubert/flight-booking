@@ -16,7 +16,7 @@ internCall.get('/flight', async (req, res, next) => {
 internCall.get('booking/id', async (req, res, next) => {
     try {
         await getBookingBydIdForInternal(req, res);
-    } catch(error) {
+    } catch (error) {
         next(error);
     }
 })

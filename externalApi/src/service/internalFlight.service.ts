@@ -1,14 +1,20 @@
 import { Booking, Flight } from "../../../contract";
 import { Request, Response } from "express";
 
-const remoteIp = '';
+const remoteIp = 'http://10.8.110.189:8080/api/v1/';
 
 export const getFlightsForInternal = async function (req: Request, res: Response): Promise<void> {
-    const response = await fetch(remoteIp + '/external/flight');
+    const response = await fetch((remoteIp + 'flights'), {
+        method: "GET",
+        headers: {
+            "K4-API-KEY": "O2cv1Y1zMfMSBr_mmdq5Ktjz_46RV6pt",
+        }
+    })
     const data = await response.json();
-    if(!data) res.json([]);
+    if (!data) res.json([]);
+
     const flights: Flight[] = new Array();
-    for(const row of data) {
+    for (const row of data) {
         flights.push(await convertFlight(row))
     }
     res.json(flights);
@@ -16,12 +22,12 @@ export const getFlightsForInternal = async function (req: Request, res: Response
 
 const convertFlight = async function (externalFlight: any): Promise<Flight> {
     return {
-        id: externalFlight.flight_id,
-        route: getRoute(externalFlight.flight),
-        date: externalFlight.date_departiture,
-        price: externalFlight.flight.price,
-        seats: externalFlight.flight.seats,
-        remainingSeats: await getRemainingSeats(externalFlight.flight.id),
+        id: externalFlight.id,
+        route: getRoute(externalFlight),
+        date: '',
+        price: externalFlight.price,
+        seats: externalFlight.seats,
+        remainingSeats: await getRemainingSeats(externalFlight.id),
         menuVege: false,
         company: 'Temps Partiel'
     } as Flight;
@@ -34,7 +40,12 @@ function getRoute(externalFlightDTO: any): string[] {
 
 // to change, return a number, might be a string
 async function getRemainingSeats(flightId: string): Promise<number> {
-    const res = await fetch(remoteIp + '/remainingSeats/?id=' + flightId);
+    const res = await fetch((remoteIp + 'flights/' + flightId + '/getRestPlace'), {
+        method: "GET",
+        headers: {
+            "K4-API-KEY": "O2cv1Y1zMfMSBr_mmdq5Ktjz_46RV6pt",
+        }
+    })
     return await res.json();
 }
 
