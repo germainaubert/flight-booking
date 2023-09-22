@@ -1,4 +1,4 @@
-import { Flight } from "../../../contract";
+import { Booking, Flight } from "../../../contract";
 import { Request, Response } from "express";
 
 const remoteIp = '';
@@ -36,3 +36,19 @@ async function getRemainingSeats(flightId: string): Promise<number> {
     const res = await fetch(remoteIp + '/remainingSeats/?id=' + flightId);
     return await res.json();
 }
+
+export const getBookingBydIdForInternal = async function (req: Request, res: Response): Promise<void> {
+    const bookingId = req.query.id;
+    const response = await fetch(remoteIp + '/external/flight');
+    const data = await response.json();
+    const booking: Booking = convertBooking(data);
+    res.json(booking);
+}
+
+function convertBooking(data: any): Booking {
+    console.log(data);
+    return {
+
+    } as Booking;
+}
+

@@ -158,4 +158,16 @@ const cancelBooking = async () => {
       </div>
     </div>
   </div>
+  <div v-else class="text-center text-xl">
+    <div>
+        Booking id: {{bookingId ? bookingId : 'undefined'}} does not exist
+    </div>
+    <router-link to="/">
+              <button
+                class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-4 border border-gray-400 rounded shadow"
+              >
+                Back
+              </button>
+    </router-link>
+  </div>
 </template>

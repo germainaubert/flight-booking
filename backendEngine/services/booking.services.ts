@@ -4,7 +4,7 @@ import { backendReportUrl, databaseAccesUrl } from "../../const"
 import { uuid } from 'uuidv4';
 
 const queueUrl = "http://localhost:3005"
-const externalUrl = "http://127.0.0.1:8080/api/v1"
+const externalUrl = "http://localhost:3001/internCall"
 
 export const postBooking = async (req: Request, res: Response) => {
   const id: string = uuid()
