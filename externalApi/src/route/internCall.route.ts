@@ -11,5 +11,4 @@ internCall.get('/flight', async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-    res.send('intern API ok')
 })
