@@ -5,12 +5,13 @@ const remoteIp = '';
 
 export const getFlightsForInternal = async function (req: Request, res: Response): Promise<void> {
     const response = await fetch(remoteIp + '/external/flight');
-    // const data = await response.json();
-    // const flights: Flight[] = new Array();
-    // for(const row of data) {
-    //     flights.push(await convertFlight(row))
-    // }
-    // res.json(flights);
+    const data = await response.json();
+    if(!data) res.json([]);
+    const flights: Flight[] = new Array();
+    for(const row of data) {
+        flights.push(await convertFlight(row))
+    }
+    res.json(flights);
 }
 
 const convertFlight = async function (externalFlight: any): Promise<Flight> {

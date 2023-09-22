@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { Booking, Currency, Flight, handledError } from "../../contract";
-import { databaseAccesUrl } from "../../const";
+import { databaseAccesUrl, externalUrl } from "../../const";
 import { convertFlightCurrency } from "./conversion.services";
 
 export const getAllFlights = async (
@@ -10,7 +10,17 @@ export const getAllFlights = async (
   const response = await fetch(
     databaseAccesUrl + "/flight/?" + req.query.currency
   );
+  const responsefromOtherService = await fetch(
+    externalUrl + "/flight/?" + req.query.currency
+  );
+
   const result: Flight[] = (await response.json()) as Flight[];
+  if(responsefromOtherService.ok){
+    const resultFromOtherService: Flight[] = (await responsefromOtherService.json()) as Flight[];
+    result.push(...resultFromOtherService);
+    result.flat();
+    console.log("result: ", result);
+  }
   if (typeof req.query.currency == "string")
     await convertFlightCurrency(result, req.query.currency as string);
 
