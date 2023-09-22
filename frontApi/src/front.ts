@@ -72,13 +72,17 @@ front.get('/flights/date', (req: Request<unknown, unknown, unknown, FlightBookin
 
 front.put('/booking/cancel', (req: Request<unknown, unknown, unknown, FlightBooking>, res: Response) => {
     (async () => {
-        const id = req.query.id;
-        const response = await fetch(bookingEngineUrl + '/booking/cancel', {
-            method: 'PUT',
-            body: JSON.stringify({ id }),
-            headers: { 'Content-Type': 'application/json' }
-        });
-        res.json(await response.json());
+        console.log('front.ts: front.put: req.body: ', req.query.id)
+        try {
+            const response = await fetch(bookingEngineUrl + '/booking/cancel', {
+                method: 'PUT',
+                body: JSON.stringify({id: req.query.id}),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            res.json(await response.json());
+        } catch (e) {
+            res.status(500).json("front-api error: " + e.message);
+        }
     }
     )();
 });
