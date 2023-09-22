@@ -13,7 +13,7 @@ class Queue<T> implements IQueue<T> {
         return this.storage.shift();
     }
     getLastItemValue(): T {
-        return this.storage[this.storage.length];
+        return this.storage[0];
     }
     size(): number {
         return this.storage.length;
@@ -24,4 +24,4 @@ interface IQueue<T> {
     enqueue(item: T): void;
     dequeue(): T | undefined;
     size(): number;
-  }
+}
