@@ -9,7 +9,7 @@ const confirmText = ref("");
 const route = useRoute();
 const router = useRouter();
 const flight = route.query;
-
+const currency  = localStorage.currency;  
 const form = ref<Booking>({
   id: "",
   firstname: "",
@@ -91,7 +91,7 @@ const createBooking = async (user: Booking) => {
           <label for="vege">Vegetarian meal</label>
         </div>
         <span class="text-xl font-bold">
-          Total price : {{ applyReduction(flight, 0.1, NO_VEGE_ROUTE) }}€
+          Total price : {{ applyReduction(flight, 0.1, NO_VEGE_ROUTE) }} {{currency }}
         </span>
         <div class="border-t border-gray-300 pt-4 flex justify-between">
           <router-link to="/">

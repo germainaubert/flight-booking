@@ -2,12 +2,13 @@
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { Flight, Booking } from "../../../contract";
+import { applyReduction } from "../helpers";
 
 const route = useRoute();
 const bookingId = route.query.id;
 const flight = ref<Flight>();
 const booking = ref<Booking>();
-
+const currency  = localStorage.currency;
 onMounted(async () => {
   booking.value = await getBooking();
   flight.value = await getFlightByBookingId();
@@ -112,7 +113,7 @@ const getFlightByBookingId = async () => {
           <!-- price -->
           <dl class="gap-x-6 text-sm bg-gray-100 p-2 rounded-lg">
             <dt class="font-medium text-gray-900">Price</dt>
-            <dd class="mt-3 text-gray-500 text-xl">{{ flight?.price }} €</dd>
+            <dd class="mt-3 text-gray-500 text-xl"> {{ applyReduction(flight, 0.1, NO_VEGE_ROUTE) }} {{currency }}</dd>
           </dl>
         </div>
        
