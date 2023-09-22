@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { backendEngineUrl, backendReportUrl } from "../../../const"
 import { Booking, Flight, handledError } from "../../../contract";
 
-
 export const getBookingById = async (req: Request, res: Response) => {
     const currency = req.query.currency
     const id = req.query.id
