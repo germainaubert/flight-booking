@@ -11,19 +11,25 @@ export const getAllFlights = async (
     databaseAccesUrl + "/flight/?" + req.query.currency
   );
   const responsefromOtherService = await fetch(
-    externalUrl + "/flight/?" + req.query.currency
+    (externalUrl + "/flight/?" + req.query.currency), 
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "access-token": "VERS24FLKJ76HY5GT4R",
+      },
+    }
   );
 
   const result: Flight[] = (await response.json()) as Flight[];
+  console.log("result before push: ");
   if(responsefromOtherService.ok){
     const resultFromOtherService: Flight[] = (await responsefromOtherService.json()) as Flight[];
     result.push(...resultFromOtherService);
-    result.flat();
-    console.log("result: ", result);
   }
+  console.log("result after push: " + result);
   if (typeof req.query.currency == "string")
     await convertFlightCurrency(result, req.query.currency as string);
-
   res.json(result);
 };
 
