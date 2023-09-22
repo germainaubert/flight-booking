@@ -4,12 +4,6 @@ const queue = new Queue<Booking>();
 //const interval = 120000; // == 2 min
 const interval = 5000; // == 5 sec
 
-
-
-export const addBookingToQueue= (booking: Booking) => {
-    queue.enqueue(booking);
-}
-
 resolveQueue();
 
 async function resolveQueue() {
@@ -23,6 +17,10 @@ async function resolveQueue() {
         }
     }
     setTimeout(resolveQueue, interval);
+}
+
+export const addBookingToQueue = (booking: Booking) => {
+    queue.enqueue(booking);
 }
 
 async function callCancelBooking(booking: Booking): Promise<true | false> {

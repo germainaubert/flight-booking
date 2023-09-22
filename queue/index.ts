@@ -1,6 +1,8 @@
-import express from 'express'
+import express, { Request } from 'express'
 import bodyParser from 'body-parser'
-import { handledError } from '../contract'
+import { Booking, handledError } from '../contract'
+import { addBookingToQueue } from './src/queueHandler'
+import { booking } from './src/routes/booking'
 
 const app = express()
 const port = 3005
@@ -9,9 +11,7 @@ const cors = require('cors')
 app.use(cors());
 app.use(bodyParser.json())
 
-app.use('/', (req, res, next) => {
-    console.log(`Queue received a request on ${req.url}`)
-})
+app.use('/', booking);
 
 //ROUTE HEALTH
 app.use('/health', (req, res, next) => {
