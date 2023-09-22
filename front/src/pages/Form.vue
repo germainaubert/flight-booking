@@ -18,7 +18,8 @@ const form = ref<Booking>({
   flightId: flight?.id as string,
   vege: false,
   price: 0,
-  currency: ""
+  currency: "",
+  status: "pending",
 });
 
 const submit = async () => {

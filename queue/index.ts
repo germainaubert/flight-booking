@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json())
 
 app.use('/', (req, res, next) => {
-    res.send('Queue')
+    console.log(`Queue received a request on ${req.url}`)
 })
 
 //ROUTE HEALTH

@@ -20,6 +20,7 @@ export type Booking = {
     vege: boolean;
     price: number;
     currency: string;
+    status: "pending" | "confirmed" | "canceled";
 }
 
 type airport = "CDG" | "JFK" | "DTW" | "LAD"

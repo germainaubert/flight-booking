@@ -24,7 +24,6 @@ app.use('/health', (req, res, next) => {
 //MIDDLEWARE GESTION ERREUR
 app.use((err: any, req: any, res: any, next: any) => {
     const handledError: handledError = err
-    res.status(handledError.code).send({ code: handledError.code, message: handledError.message })
 })
 
 app.listen(port, () => {
