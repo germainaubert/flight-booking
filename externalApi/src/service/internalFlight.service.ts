@@ -22,7 +22,7 @@ const convertFlight = async function (externalFlight: any): Promise<Flight> {
         seats: externalFlight.flight.seats,
         remainingSeats: await getRemainingSeats(externalFlight.flight.id),
         menuVege: false,
-        company: 'les mecs du fond'
+        company: 'Temps Partiel'
     } as Flight;
 }
 

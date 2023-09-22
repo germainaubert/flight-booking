@@ -38,7 +38,13 @@ const getFlightByBookingId = async () => {
       class="mx-auto max-w-xl rounded-md shadow-md mt-16 border border-gray-300"
     >
       <div class="flex flex-col space-y-2 p-2">
+        <div class="flex flex-row justify-between items-center px-4 py-2">
         <div class="text-xl font-bold">Your booking n°{{ booking.id }}</div>
+        <!-- badge with status -->
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+          {{ booking.status }}
+        </span>
+      </div>
         <div class="border-b border-gray-300 px-4"></div>
         <!-- booking user infos -->
     <div class="bg-white bg-opacity-30 px-2 rounded-lg pb-2">

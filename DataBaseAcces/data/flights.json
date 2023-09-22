@@ -1,1 +1,92 @@
-[{"id":"0","route":["CDG","JFK"],"date":"2023-09-09","price":1000,"seats":1000,"remainingSeats":990,"menuVege":true},{"id":"1","route":["CDG","DTW"],"date":"2023-09-08","price":700,"seats":700,"remainingSeats":700,"menuVege":true},{"id":"2","route":["JFK","DTW"],"date":"2023-09-08","price":300,"seats":300,"remainingSeats":300,"menuVege":false},{"id":"3","route":["JFK","CDG"],"date":"2023-09-08","price":1000,"seats":1000,"remainingSeats":1000,"menuVege":true},{"id":"4","route":["DTW","CDG"],"date":"2023-09-08","price":700,"seats":700,"remainingSeats":700,"menuVege":true},{"id":"5","route":["DTW","JFK"],"date":"2023-09-08","price":300,"seats":300,"remainingSeats":300,"menuVege":false},{"id":"6","date":"2023-09-08","route":["CDG","DTW","JFK"],"price":1000,"seats":600,"remainingSeats":0,"menuVege":true}]
+[
+  {
+    "id": "0",
+    "route": ["CDG", "JFK"],
+    "date": "2023-09-09",
+    "price": 1000,
+    "seats": 1000,
+    "remainingSeats": 0,
+    "menuVege": true,
+    "company": "Temps Partiel"
+  },
+  {
+    "id": "1",
+    "route": ["CDG", "DTW"],
+    "date": "2023-09-08",
+    "price": 700,
+    "seats": 700,
+    "remainingSeats": 693,
+    "menuVege": true,
+    "company": "Temps Partiel"
+  },
+  {
+    "id": "2",
+    "route": ["JFK", "DTW"],
+    "date": "2023-09-08",
+    "price": 300,
+    "seats": 300,
+    "remainingSeats": 300,
+    "menuVege": false,
+    "company": "Temps Partiel"
+  },
+  {
+    "id": "3",
+    "route": ["JFK", "CDG"],
+    "date": "2023-09-08",
+    "price": 1000,
+    "seats": 1000,
+    "remainingSeats": 1000,
+    "menuVege": true,
+    "company": "Temps Partiel"
+  },
+  {
+    "id": "4",
+    "route": ["DTW", "CDG"],
+    "date": "2023-09-08",
+    "price": 700,
+    "seats": 700,
+    "remainingSeats": 700,
+    "menuVege": true,
+    "company": "Temps Partiel"
+  },
+  {
+    "id": "5",
+    "route": ["DTW", "JFK"],
+    "date": "2023-09-08",
+    "price": 300,
+    "seats": 300,
+    "remainingSeats": 300,
+    "menuVege": false,
+    "company": "Temps Partiel"
+  },
+  {
+    "id": "6",
+    "date": "2023-09-08",
+    "route": ["CDG", "DTW", "JFK"],
+    "price": 1000,
+    "seats": 600,
+    "remainingSeats": 300,
+    "menuVege": true,
+    "company": "Temps Partiel"
+  },
+  {
+    "id": "7",
+    "date": "2023-09-08",
+    "route": ["CDG", "LAD"],
+    "price": 600,
+    "seats": 600,
+    "remainingSeats": 600,
+    "menuVege": true,
+    "company": "Temps Partiel"
+  },
+  {
+    "id": "8",
+    "date": "2023-09-08",
+    "route": ["LAD", "CDG"],
+    "price": 600,
+    "seats": 600,
+    "remainingSeats": 600,
+    "menuVege": true,
+    "company": "Temps Partiel"
+  }
+]

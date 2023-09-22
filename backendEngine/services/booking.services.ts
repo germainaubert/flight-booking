@@ -14,7 +14,7 @@ export const postBooking = async (req: Request, res: Response) => {
   /* if (flightResponseData.convertedPrice)
      bookingPrice = flightResponseData.convertedPrice[currency]
  */
-
+  console.log(flightResponseData, 'flightResponseData')
   let booking: Booking = {
     id,
     flightId,
@@ -23,7 +23,8 @@ export const postBooking = async (req: Request, res: Response) => {
     lastname: req.body.lastname,
     email: req.body.email,
     vege: (typeof req.body.vege === 'boolean' ? req.body.vege : false),
-    price: bookingPrice
+    price: bookingPrice,
+    status: flightResponseData.company === "Temps Partiel" ? "confirmed" : "pending"
   }
 
   if (flightResponseData.remainingSeats === 0) throw new handledError(404, "Flight is complete");
