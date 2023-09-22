@@ -53,118 +53,119 @@ const cancelBooking = async () => {
 <template>
   <div v-if="flight && booking">
     <div v-if="booking.status === 'confirmed'">
-      class="mx-auto max-w-xl rounded-md shadow-md mt-16 border border-gray-300"
+      <div
+        class="mx-auto max-w-xl rounded-md shadow-md mt-16 border border-gray-300"
       >
-      <div class="flex flex-col space-y-2 p-2">
-        <div class="flex flex-row justify-between items-center px-4 py-2">
-          <div class="text-xl font-bold">Your booking n°{{ booking.id }}</div>
-          <!-- badge with status -->
-          <span
-            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
-          >
-            {{ booking.status }}
-          </span>
-        </div>
-        <div class="border-b border-gray-300 px-4"></div>
-        <!-- booking user infos -->
-        <div class="bg-white bg-opacity-30 px-2 rounded-lg pb-2">
-          <div class="text-xl font-bold">Your informations</div>
-          <!-- avatar -->
-          <div class="flex flex-row items-center space-x-2">
-            <img
-              class="w-12 h-12 rounded-full bg-gray-300"
-              src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-            />
-            <div class="flex flex-col">
-              <div class="text-lg font-bold">
-                {{ booking?.firstname }} {{ booking?.lastname }}
-              </div>
-              <div class="text-sm text-gray-500">
-                {{ booking?.email }}
+        <div class="flex flex-col space-y-2 p-2">
+          <div class="flex flex-row justify-between items-center px-4 py-2">
+            <div class="text-xl font-bold">Your booking n°{{ booking.id }}</div>
+            <!-- badge with status -->
+            <span
+              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+            >
+              {{ booking.status }}
+            </span>
+          </div>
+          <div class="border-b border-gray-300 px-4"></div>
+          <!-- booking user infos -->
+          <div class="bg-white bg-opacity-30 px-2 rounded-lg pb-2">
+            <div class="text-xl font-bold">Your informations</div>
+            <!-- avatar -->
+            <div class="flex flex-row items-center space-x-2">
+              <img
+                class="w-12 h-12 rounded-full bg-gray-300"
+                src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+              />
+              <div class="flex flex-col">
+                <div class="text-lg font-bold">
+                  {{ booking?.firstname }} {{ booking?.lastname }}
+                </div>
+                <div class="text-sm text-gray-500">
+                  {{ booking?.email }}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- separator -->
-        <!-- separator -->
-        <div class="border-b border-gray-300 pb-2"></div>
-        <div class="grid grid-cols-2 gap-1 py-4">
-          <dl class="gap-x-6 text-sm bg-gray-100 p-2 rounded-lg">
-            <dt class="font-medium text-gray-900">Departure</dt>
-            <dd class="mt-3 text-gray-500 text-xl">
-              {{ flight?.route[0] }}
-            </dd>
-          </dl>
-          <dl class="gap-x-6 text-sm bg-gray-100 p-2 rounded-lg">
-            <dt class="font-medium text-gray-900">Arrival</dt>
-            <dd class="mt-3 text-gray-500 text-xl">
-              {{ flight?.route[flight?.route.length - 1] }}
-            </dd>
-          </dl>
-          <!-- vege -->
-          <dl class="gap-x-6 text-sm bg-gray-100 p-2 rounded-lg">
-            <dt class="font-medium text-gray-900">Vegetarian</dt>
-            <dd class="mt-3 text-gray-500 text-xl">
-              <div v-if="booking?.vege">
-                <svg
-                  class="w-6 h-6 text-green-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  ></path>
-                </svg>
-              </div>
-              <div v-else>
-                <svg
-                  class="w-6 h-6 text-red-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-              </div>
-            </dd>
-          </dl>
-          <!-- price -->
-          <dl class="gap-x-6 text-sm bg-gray-100 p-2 rounded-lg">
-            <dt class="font-medium text-gray-900">Price</dt>
-            <dd class="mt-3 text-gray-500 text-xl">
-              {{ applyReduction(flight, 0.1, NO_VEGE_ROUTE) }} {{ currency }}
-            </dd>
-          </dl>
-        </div>
+          <!-- separator -->
+          <!-- separator -->
+          <div class="border-b border-gray-300 pb-2"></div>
+          <div class="grid grid-cols-2 gap-1 py-4">
+            <dl class="gap-x-6 text-sm bg-gray-100 p-2 rounded-lg">
+              <dt class="font-medium text-gray-900">Departure</dt>
+              <dd class="mt-3 text-gray-500 text-xl">
+                {{ flight?.route[0] }}
+              </dd>
+            </dl>
+            <dl class="gap-x-6 text-sm bg-gray-100 p-2 rounded-lg">
+              <dt class="font-medium text-gray-900">Arrival</dt>
+              <dd class="mt-3 text-gray-500 text-xl">
+                {{ flight?.route[flight?.route.length - 1] }}
+              </dd>
+            </dl>
+            <!-- vege -->
+            <dl class="gap-x-6 text-sm bg-gray-100 p-2 rounded-lg">
+              <dt class="font-medium text-gray-900">Vegetarian</dt>
+              <dd class="mt-3 text-gray-500 text-xl">
+                <div v-if="booking?.vege">
+                  <svg
+                    class="w-6 h-6 text-green-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                </div>
+                <div v-else>
+                  <svg
+                    class="w-6 h-6 text-red-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </div>
+              </dd>
+            </dl>
+            <!-- price -->
+            <dl class="gap-x-6 text-sm bg-gray-100 p-2 rounded-lg">
+              <dt class="font-medium text-gray-900">Price</dt>
+              <dd class="mt-3 text-gray-500 text-xl">
+                {{ applyReduction(flight, 0.1, NO_VEGE_ROUTE) }} {{ currency }}
+              </dd>
+            </dl>
+          </div>
 
-        <!-- back button -->
-        <div class="flex justify-between">
-          <button
-            class="bg-white hover:bg-red-100 text-red-800 font-semibold py-1 px-4 border border-red-400 rounded shadow"
-            @click="cancelBooking"
-          >
-            Cancel
-          </button>
-          <router-link to="/">
+          <!-- back button -->
+          <div class="flex justify-between">
             <button
-              class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-4 border border-gray-400 rounded shadow"
+              class="bg-white hover:bg-red-100 text-red-800 font-semibold py-1 px-4 border border-red-400 rounded shadow"
+              @click="cancelBooking"
             >
-              Back
+              Cancel
             </button>
-          </router-link>
+            <router-link to="/">
+              <button
+                class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-4 border border-gray-400 rounded shadow"
+              >
+                Back
+              </button>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
-
     <div
       v-if="booking.status === 'canceled'"
       class="text-center text-xl bg-red-100 p-4 border border-red-400 rounded mt-16 mx-auto max-w-xl flex flex-col space-y-2"
