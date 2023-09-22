@@ -93,5 +93,4 @@ export const bookFromOtherCompany = async (booking: Booking) => {
     },
     body: JSON.stringify(booking)
   })
-
 }
