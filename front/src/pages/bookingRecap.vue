@@ -30,6 +30,24 @@ const getFlightByBookingId = async () => {
   );
   return response.json();
 };
+
+const cancelBooking = async () => {
+  const response = await fetch(
+    "http://localhost:3000/booking/cancel/?id=" + bookingId,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (response.status === 200) {
+    alert("Your booking has been cancelled");
+    location.reload();
+  } else {
+    alert("An error occured, please try again later");
+  }
+};
 </script>
 
 <template>
@@ -124,8 +142,10 @@ const getFlightByBookingId = async () => {
         </div>
        
         <!-- back button -->
-        <div class="flex justify-end">
-          <div>
+          <div class="flex justify-between">
+            <button class="bg-white hover:bg-red-100 text-red-800 font-semibold py-1 px-4 border border-red-400 rounded shadow" @click="cancelBooking">
+              Cancel
+            </button>
             <router-link to="/">
               <button
                 class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-4 border border-gray-400 rounded shadow"
@@ -133,7 +153,6 @@ const getFlightByBookingId = async () => {
                 Back
               </button>
             </router-link>
-          </div>
         </div>
         
       </div>

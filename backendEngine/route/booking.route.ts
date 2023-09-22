@@ -22,3 +22,11 @@ booking.get('/id', async (req, res, next) => {
     }
 })
 
+booking.put('/cancel', async (req, res, next) => {
+    try {
+        await getBookingById(req, res)
+        // todo cancel flight
+    } catch (error) {
+        next(error)
+    }
+})

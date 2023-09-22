@@ -3,6 +3,9 @@ import { Booking, Conversion, Flight, handledError } from "../../contract";
 import { backendReportUrl, databaseAccesUrl } from "../../const"
 import { uuid } from 'uuidv4';
 
+const queueUrl = "http://localhost:3005"
+const externalUrl = "http://127.0.0.1:8080/api/v1"
+
 export const postBooking = async (req: Request, res: Response) => {
   const id: string = uuid()
   const flightId = req.body.flightId
@@ -11,10 +14,7 @@ export const postBooking = async (req: Request, res: Response) => {
   const flightResponse = await fetch(backendReportUrl + '/flight/id/?id=' + flightId + '&currency=' + currency)
   const flightResponseData: Flight = (await flightResponse.json()) as Flight
   let bookingPrice = flightResponseData.price;
-  /* if (flightResponseData.convertedPrice)
-     bookingPrice = flightResponseData.convertedPrice[currency]
- */
-  console.log(flightResponseData, 'flightResponseData')
+
   let booking: Booking = {
     id,
     flightId,
@@ -26,6 +26,15 @@ export const postBooking = async (req: Request, res: Response) => {
     price: bookingPrice,
     status: flightResponseData.company === "Temps Partiel" ? "confirmed" : "pending"
   }
+
+  
+  //  if company is not ours
+  if (flightResponseData.company !== "Temps Partiel") {
+    const response = bookFromOtherCompany(booking)
+    res.json({ id })
+    return
+  }
+
 
   if (flightResponseData.remainingSeats === 0) throw new handledError(404, "Flight is complete");
   if (!flightResponseData.menuVege && booking.vege) throw new handledError(404, "Vegetarian menu not available on this flight");
@@ -61,8 +70,28 @@ export const postBooking = async (req: Request, res: Response) => {
 
 export const getBookingById = async (req: Request, res: Response) => {
   const id = req.query.id
+  let response : Booking;
   const getBookingByIdResponse = await fetch(databaseAccesUrl + '/booking/id/?id=' + id)
-  const getBookingByIdResponseData: Booking = (await getBookingByIdResponse.json()) as Booking
-  if (getBookingByIdResponseData == null) throw new handledError(404, "Booking id not found");
-  res.json(getBookingByIdResponseData);
+  response = (await getBookingByIdResponse.json()) as Booking
+  if (response == null) {
+    // check on external api if booking exists
+    const externalResponse = await fetch(externalUrl + '/booking/id/?id=' + id)
+    const response: Booking = (await externalResponse.json()) as Booking
+    if (response == null) throw new handledError(404, "Booking not found");
+  }
+  res.json(response)
+}
+
+export const bookFromOtherCompany = async (booking: Booking) => {
+  // check booking exists
+  if (!booking) throw new handledError(404, "Booking not found");
+  // go on the queue api 
+  await fetch(queueUrl + '/booking', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(booking)
+  })
+
 }
